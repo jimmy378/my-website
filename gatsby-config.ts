@@ -10,7 +10,7 @@ const config: GatsbyConfig = {
     plugins: [
         {
             options: {
-                accessToken: process.env.CONTENTFUL_API_KEY,
+                accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
                 spaceId: process.env.CONTENTFUL_SPACE_ID,
             },
             resolve: 'gatsby-source-contentful',
