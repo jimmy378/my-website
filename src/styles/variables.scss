@@ -1,0 +1,15 @@
+$unit-base: 12px;
+
+$unit-desktop: 1000px;
+@mixin breakpoint-desktop {
+    @media (max-width: #{$unit-desktop}) {
+        @content;
+    }
+ }
+
+$unit-mobile: 640px;
+@mixin breakpoint-mobile {
+    @media (max-width: #{$unit-mobile}) {
+        @content;
+    }
+ }

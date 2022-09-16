@@ -1,0 +1,38 @@
+@import './reset.scss';
+@import './variables.scss';
+
+header {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    height: $unit-base * 6;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 $unit-base * 2;
+    img {
+        height: $unit-base * 2;
+    }
+    > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: $unit-desktop;
+        width: 100%;
+    }
+
+    @include breakpoint-mobile {
+        > div {
+            img, a {
+                display: none;
+            }
+        }
+    }
+}
+
+main > section {
+    padding: 0 $unit-base * 2;
+    margin: 0 auto;
+    max-width: $unit-desktop;
+}

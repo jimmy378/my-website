@@ -1,3 +1,5 @@
+import '../styles/index.scss';
+
 import { graphql, HeadFC } from 'gatsby';
 import * as React from 'react';
 
