@@ -26,6 +26,12 @@ const config: GatsbyConfig = {
             },
             resolve: 'gatsby-plugin-manifest',
         },
+        {
+            options: {
+                fonts: [`Montserrat:400,700`],
+            },
+            resolve: `gatsby-plugin-google-fonts`,
+        },
         'gatsby-plugin-mdx',
         {
             __key: 'images',

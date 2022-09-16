@@ -1,5 +1,13 @@
 $unit-base: 12px;
 
+$color-white: #FFF;
+$color-base: #001235;
+$color-primary: #60BC65;
+$color-primary-dark: #22AF2A;
+$color-secondary: #7B3FD9;
+$color-grey: #5E6E8D;
+$color-light-grey: #D7D8DA;
+
 $unit-desktop: 1000px;
 @mixin breakpoint-desktop {
     @media (max-width: #{$unit-desktop}) {

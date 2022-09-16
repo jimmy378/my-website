@@ -1,6 +1,11 @@
 @import './reset.scss';
 @import './variables.scss';
 
+body {
+    color: $color-base;
+    font-family: 'Montserrat', sans-serif;
+}
+
 header {
     width: 100%;
     position: sticky;
