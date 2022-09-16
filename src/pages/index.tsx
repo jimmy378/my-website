@@ -1,64 +1,43 @@
-import { graphql, HeadFC, PageProps } from 'gatsby';
+import { graphql, HeadFC } from 'gatsby';
 import * as React from 'react';
 
-const IndexPage = ({ data }: PageProps<Queries.IndexPageQuery>) => {
-    if (!data.contentfulPage) {
-        return <></>;
-    }
-    const page = data.contentfulPage;
+import ContentContact from '../components/ContentContact';
+import ContentLanding from '../components/ContentLanding';
+import ContentSkills from '../components/ContentSkills';
+import ContentWork from '../components/ContentWork';
+import Header from '../components/Header';
 
-    return <main>{'My Website'}</main>;
-};
-
-export const Head: HeadFC<Queries.IndexPageQuery> = ({ data }) => {
-    if (!data.contentfulPage) {
-        return <></>;
-    }
-    const { metaTags, title } = data.contentfulPage;
+const IndexPage = () => {
     return (
-        <>
-            <title>{title || ''}</title>
-            {metaTags?.map((tag, index) => {
-                if (!tag) {
-                    return <></>;
-                }
-                const { content, name, nameType } = tag;
-                return (
-                    <meta
-                        content={content?.content || ''}
-                        key={`meta=${index}`}
-                        name={
-                            nameType === 'name' ? name || undefined : undefined
-                        }
-                        property={
-                            nameType === 'property'
-                                ? name || undefined
-                                : undefined
-                        }
-                    />
-                );
-            })}
-        </>
+        <main>
+            <Header />
+            <ContentLanding />
+            <ContentWork />
+            <ContentSkills />
+            <ContentContact />
+        </main>
     );
 };
+
+export const Head: HeadFC<Queries.IndexPageQuery> = ({ data }) => (
+    <>
+        <title>{data.site?.siteMetadata?.title || ''}</title>
+        <meta
+            content={data.site?.siteMetadata?.description || ''}
+            name="description"
+        ></meta>
+    </>
+);
 
 export default IndexPage;
 
 export const query = graphql`
     query IndexPage {
-        contentfulPage(name: { eq: "Home" }) {
-            slug
-            title
-            metaTags {
-                name
-                nameType
-                content {
-                    content
-                }
+        site {
+            siteMetadata {
+                description
+                title
             }
-            canonical
-            sections
-            name
         }
     }
 `;

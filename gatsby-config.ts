@@ -61,8 +61,9 @@ const config: GatsbyConfig = {
         },
     ],
     siteMetadata: {
+        description: ``,
         siteUrl: `https://jamesandersondesign.com.au/`,
-        title: `My website`,
+        title: `I'm a motion graphics artist, web designer and illustrator based in Sydney, Australia.`,
     },
 };
 
