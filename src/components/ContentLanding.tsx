@@ -1,7 +1,8 @@
 import { graphql, useStaticQuery } from 'gatsby';
 import * as React from 'react';
+import { FC } from 'react';
 
-const ContentLanding: React.FC = () => {
+const ContentLanding: FC = () => {
     const data: Queries.LandingQuery = useStaticQuery(graphql`
         query Landing {
             contentfulLandingSection {

@@ -8,14 +8,18 @@ body {
 
 header {
     width: 100%;
-    position: sticky;
-    top: 0;
+    position: fixed;
+    top: $unit-base * -6;
     height: $unit-base * 6;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0 $unit-base * 2;
+    z-index: 100;
+    box-shadow: none;
+    background: $color-white;
+    transition: all 0.5s ease;
     img {
         height: $unit-base * 2;
     }
@@ -26,8 +30,15 @@ header {
         max-width: $unit-desktop;
         width: 100%;
     }
+    &.visible {
+        top: 0;
+        box-shadow: $shadow-header;
+    }
 
     @include breakpoint-mobile {
+        position: fixed;
+        box-shadow: none;
+        background: none;
         > div {
             img, a {
                 display: none;
@@ -40,4 +51,13 @@ main > section {
     padding: 0 $unit-base * 2;
     margin: 0 auto;
     max-width: $unit-desktop;
+    &:not(:first-of-type) {
+        margin-top: $unit-base * 16;
+    }
+
+    @include breakpoint-mobile {
+        &:not(:first-of-type) {
+            margin-top: $unit-base * 10;
+        }
+    }
 }

@@ -1,7 +1,8 @@
 import { graphql, useStaticQuery } from 'gatsby';
 import * as React from 'react';
+import { FC } from 'react';
 
-const ContentSkills: React.FC = () => {
+const ContentSkills: FC = () => {
     const data: Queries.SkillsQuery = useStaticQuery(graphql`
         query Skills {
             contentfulSkillsSection {

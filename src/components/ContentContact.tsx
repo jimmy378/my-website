@@ -1,7 +1,8 @@
 import { graphql, useStaticQuery } from 'gatsby';
 import * as React from 'react';
+import { FC } from 'react';
 
-const ContentContact: React.FC = () => {
+const ContentContact: FC = () => {
     const data: Queries.ContactQuery = useStaticQuery(graphql`
         query Contact {
             contentfulContactSection {

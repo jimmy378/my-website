@@ -1,7 +1,8 @@
 import { graphql, useStaticQuery } from 'gatsby';
 import * as React from 'react';
+import { FC, useEffect, useRef } from 'react';
 
-const Header: React.FC = () => {
+const Header: FC = () => {
     const data: Queries.HeaderQuery = useStaticQuery(graphql`
         query Header {
             file(name: { eq: "icon_black" }) {
@@ -26,6 +27,25 @@ const Header: React.FC = () => {
         }
     `);
 
+    const headerRef = useRef<HTMLHeadingElement>(null);
+
+    useEffect(() => {
+        const onScroll = () => {
+            if (headerRef.current) {
+                if (scrollY > 0) {
+                    headerRef.current.classList.add('visible');
+                } else {
+                    headerRef.current.classList.remove('visible');
+                }
+            }
+        };
+        addEventListener('scroll', onScroll);
+
+        return () => {
+            removeEventListener('scroll', onScroll);
+        };
+    }, []);
+
     if (
         !data.contentfulLandingSection ||
         !data.contentfulWorkSection ||
@@ -41,10 +61,10 @@ const Header: React.FC = () => {
     const contact = data.contentfulContactSection;
 
     return (
-        <header>
+        <header ref={headerRef}>
             <div>
                 <img src={data.file?.publicURL || ''} />
-                <div>
+                <nav>
                     <a href={`#${landing.anchor || ''}`}>
                         {landing.linkName || ''}
                     </a>
@@ -55,7 +75,7 @@ const Header: React.FC = () => {
                     <a href={`#${contact.anchor || ''}`}>
                         {contact.linkName || ''}
                     </a>
-                </div>
+                </nav>
             </div>
         </header>
     );

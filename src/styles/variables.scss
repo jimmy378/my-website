@@ -21,3 +21,5 @@ $unit-mobile: 640px;
         @content;
     }
  }
+
+ $shadow-header: 0 $unit-base $unit-base * 3.5 rgba($color-base, 0.025);
