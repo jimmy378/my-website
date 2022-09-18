@@ -30,7 +30,7 @@ const ContentSkills: FC = () => {
     return (
         <>
             <a className={anchor || ''} />
-            <section>{'Skills'}</section>
+            <section className={anchor || ''}>{'Skills'}</section>
         </>
     );
 };

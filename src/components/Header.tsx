@@ -45,6 +45,7 @@ const Header: FC = () => {
     const [focusedAnchor, setfocusedAnchor] = useState<string>(
         landing.anchor || ''
     );
+    const [activeAnchor, setActiveAnchor] = useState<string | null>();
 
     const anchors = [
         landing.anchor || '',
@@ -83,7 +84,7 @@ const Header: FC = () => {
         const onHashChange = (e: HashChangeEvent) => {
             e.preventDefault();
             const section = document.querySelector(
-                `.${location.hash.substring(1) || landing.anchor}`
+                `a.${location.hash.substring(1) || landing.anchor}`
             );
             console.log(section);
             if (section) {
@@ -106,31 +107,41 @@ const Header: FC = () => {
             }
         );
         anchors.forEach((anchor) => {
-            observer.observe(document.querySelector(`.${anchor}`) as any);
+            observer.observe(
+                document.querySelector(`section.${anchor}`) as any
+            );
         });
 
         return () => {
             removeEventListener('scroll', onScroll);
             removeEventListener('hashchange', onHashChange);
             anchors.forEach((anchor) => {
-                observer.unobserve(document.querySelector(`.${anchor}`) as any);
+                observer.unobserve(
+                    document.querySelector(`section.${anchor}`) as any
+                );
             });
         };
     }, []);
 
     const getAnchorClass = (anchor: string | null): string => {
+        if (activeAnchor) {
+            return activeAnchor === anchor ? 'focused' : '';
+        }
         return focusedAnchor === anchor ? 'focused' : '';
     };
 
-    let timeout: any;
     const setSection = (anchor: string) => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-            setfocusedAnchor(anchor);
-            if (location.hash !== `#${anchor}`) {
-                history.pushState({}, '', `#${anchor}`);
-            }
-        }, 500);
+        setfocusedAnchor(anchor);
+        if (location.hash !== `#${anchor}`) {
+            history.pushState({}, '', `#${anchor}`);
+        }
+    };
+
+    const anchorClicked = (anchor: string) => {
+        setActiveAnchor(anchor);
+        setTimeout(() => {
+            setActiveAnchor(null);
+        }, 1000);
     };
 
     return (
@@ -141,24 +152,28 @@ const Header: FC = () => {
                     <a
                         className={getAnchorClass(landing.anchor)}
                         href={`#${landing.anchor || ''}`}
+                        onClick={() => anchorClicked(landing.anchor || '')}
                     >
                         {landing.linkName || ''}
                     </a>
                     <a
                         className={getAnchorClass(work.anchor)}
                         href={`#${work.anchor || ''}`}
+                        onClick={() => anchorClicked(work.anchor || '')}
                     >
                         {work.linkName || ''}
                     </a>
                     <a
                         className={getAnchorClass(skills.anchor)}
                         href={`#${skills.anchor || ''}`}
+                        onClick={() => anchorClicked(skills.anchor || '')}
                     >
                         {skills.linkName || ''}
                     </a>
                     <a
                         className={getAnchorClass(contact.anchor)}
                         href={`#${contact.anchor || ''}`}
+                        onClick={() => anchorClicked(contact.anchor || '')}
                     >
                         {contact.linkName || ''}
                     </a>

@@ -21,7 +21,7 @@ const ContentContact: FC = () => {
     return (
         <>
             <a className={anchor || ''} />
-            <section>{'Contact'}</section>
+            <section className={anchor || ''}>{'Contact'}</section>
         </>
     );
 };

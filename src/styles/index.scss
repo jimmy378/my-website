@@ -85,6 +85,12 @@ header {
     }
 }
 
+main > a {
+    display: block;
+    height: $unit-base;
+    margin-bottom: $unit-base * -1;
+}
+
 main > section {
     background: red;
     height: 500px;
