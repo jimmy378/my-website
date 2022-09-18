@@ -20,7 +20,7 @@ const ContentContact: FC = () => {
 
     return (
         <>
-            <a id={anchor || ''} />
+            <a className={anchor || ''} />
             <section>{'Contact'}</section>
         </>
     );

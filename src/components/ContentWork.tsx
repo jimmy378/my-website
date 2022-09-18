@@ -25,7 +25,7 @@ const ContentWork: FC = () => {
 
     return (
         <>
-            <a id={anchor || ''} />
+            <a className={anchor || ''} />
             <section>{'Work'}</section>
         </>
     );

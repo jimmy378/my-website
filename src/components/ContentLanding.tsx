@@ -33,7 +33,7 @@ const ContentLanding: FC = () => {
 
     return (
         <>
-            <a id={anchor || ''} />
+            <a className={anchor || ''} />
             <section>{'Landing'}</section>
         </>
     );
