@@ -59,10 +59,10 @@ const Header: FC = () => {
         if (!location.hash) {
             const section = document.querySelector(`.${landing.anchor}`);
             if (section) {
-                section?.scrollIntoView({
-                    behavior: 'smooth',
-                });
-                setSection(location.hash.substring(1) || landing.anchor || '');
+                scrollIntoView(
+                    section,
+                    location.hash.substring(1) || landing.anchor || ''
+                );
             }
         }
 
@@ -86,12 +86,11 @@ const Header: FC = () => {
             const section = document.querySelector(
                 `a.${location.hash.substring(1) || landing.anchor}`
             );
-            console.log(section);
             if (section) {
-                section?.scrollIntoView({
-                    behavior: 'smooth',
-                });
-                setSection(location.hash.substring(1) || landing.anchor || '');
+                scrollIntoView(
+                    section,
+                    location.hash.substring(1) || landing.anchor || ''
+                );
             }
         };
         addEventListener('hashchange', onHashChange);
@@ -128,6 +127,13 @@ const Header: FC = () => {
             return activeAnchor === anchor ? 'focused' : '';
         }
         return focusedAnchor === anchor ? 'focused' : '';
+    };
+
+    const scrollIntoView = (section: Element, anchor: string) => {
+        section?.scrollIntoView({
+            behavior: 'smooth',
+        });
+        setSection(anchor);
     };
 
     const setSection = (anchor: string) => {
