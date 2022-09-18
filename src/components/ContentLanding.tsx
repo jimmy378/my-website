@@ -1,4 +1,5 @@
 import { graphql, useStaticQuery } from 'gatsby';
+import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import lottie from 'lottie-web';
 import * as React from 'react';
 import { FC, useEffect, useRef, useState } from 'react';
@@ -34,7 +35,7 @@ const ContentLanding: FC = () => {
 
     const playerRef = useRef<HTMLDivElement>(null);
     const [loading, setLoading] = useState(true);
-    const { anchor, animation } = data.contentfulLandingSection;
+    const { anchor, animation, content } = data.contentfulLandingSection;
 
     useEffect(() => {
         const anim = lottie.loadAnimation({
@@ -61,6 +62,9 @@ const ContentLanding: FC = () => {
         <>
             <a className={anchor || ''} />
             <section className={anchor || ''}>
+                <div className="content">
+                    {content && renderRichText(content as any, {})}
+                </div>
                 <div className="animation">
                     {loading && <Spinner />}
                     <div ref={playerRef} />
