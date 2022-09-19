@@ -94,6 +94,9 @@ header {
         background: none;
         top: 0;
         transition: none;
+        &.visible {
+            box-shadow: none;
+        }
         > div {
             img, a {
                 display: none;
@@ -172,17 +175,33 @@ main > section {
     border: $unit-line solid $color-primary;
     border-radius: $unit-line * 2;
     background: $color-white;
-    img {
+    user-select: none;
+    cursor: pointer;
+    img, svg {
         width: $unit-base * 1.5;
         max-width: $unit-base * 1.5;
         min-width: $unit-base * 1.5;
         filter: invert(50%) sepia(32%) saturate(2174%) hue-rotate(85deg) brightness(95%) contrast(80%);
+    }
+    &.wave {
+        display: none;
+        svg {
+            width: $unit-base * 2;
+            max-width: $unit-base * 2;
+            min-width: $unit-base * 2;
+        }
     }
     &:hover {
         background: mix($color-white, $color-primary, 90%);
     }
     &:active {
         background: mix($color-white, $color-primary, 80%);
+    }
+
+    @include breakpoint-desktop {
+        &.wave {
+            display: flex;
+        }
     }
 }
 
@@ -191,6 +210,7 @@ section.hi {
     justify-content: center;
     align-items: center;
     min-height: $unit-base * 60;
+    position: relative;
     .animation {
         display: flex;
         justify-content: center;
@@ -200,6 +220,10 @@ section.hi {
         position: relative;
         .spinner {
             position: absolute;
+        }
+        .player {
+            width: 100%;
+            height: 100%;
         }
     }
     .content {
@@ -216,6 +240,42 @@ section.hi {
             display: flex;
             flex-wrap: wrap;
             gap: $unit-base;
+        }
+    }
+    a.continue {
+        position: absolute;
+        bottom: $unit-base * 4;
+        filter: invert(63%) sepia(66%) saturate(349%) hue-rotate(73deg) brightness(91%) contrast(86%);
+        &:active {
+            filter: invert(50%) sepia(32%) saturate(2174%) hue-rotate(85deg) brightness(95%) contrast(80%);
+        }
+    }
+
+    @include breakpoint-desktop {
+        .animation {
+            display: none;
+            max-width: $unit-base * 50;
+            &.visible {
+                display: flex;
+                flex-direction: column;
+            }
+            .links {
+                display: flex;
+                gap: $unit-base;
+            }
+        }
+    }
+
+    @include breakpoint-mobile {
+        min-height: 0;
+        overflow: hidden;
+        .content {
+            width: 100%;
+        }
+        .animation {
+            margin: 0 $unit-base * -16;
+            width: initial;
+            max-width: none;
         }
     }
 }

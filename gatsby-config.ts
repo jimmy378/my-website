@@ -28,6 +28,14 @@ const config: GatsbyConfig = {
         },
         {
             options: {
+                rule: {
+                    include: /icons/,
+                },
+            },
+            resolve: 'gatsby-plugin-react-svg',
+        },
+        {
+            options: {
                 fonts: [`Montserrat:400,700`],
             },
             resolve: `gatsby-plugin-google-fonts`,
