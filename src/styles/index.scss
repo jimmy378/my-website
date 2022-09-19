@@ -10,6 +10,22 @@ body {
     scroll-behavior: smooth;
 }
 
+h1 {
+    font-size: $type-heading;
+    line-height: $type-heading-lh;
+    margin: 0;
+}
+
+a {
+    color: $color-primary-dark;
+    appearance: none;
+    text-decoration-color: rgba($color-primary, 0.5);
+    text-decoration-thickness: $unit-line;
+    &:active {
+        color: mix($color-base, $color-primary-dark, 20%);
+    }
+}
+
 header {
     width: 100%;
     position: fixed;
@@ -147,10 +163,34 @@ main > section {
     }
 }
 
+.link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: $unit-base * 3.5;
+    height: $unit-base * 3.5;
+    border: $unit-line solid $color-primary;
+    border-radius: $unit-line * 2;
+    background: $color-white;
+    img {
+        width: $unit-base * 1.5;
+        max-width: $unit-base * 1.5;
+        min-width: $unit-base * 1.5;
+        filter: invert(50%) sepia(32%) saturate(2174%) hue-rotate(85deg) brightness(95%) contrast(80%);
+    }
+    &:hover {
+        background: mix($color-white, $color-primary, 90%);
+    }
+    &:active {
+        background: mix($color-white, $color-primary, 80%);
+    }
+}
+
 section.hi {
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: $unit-base * 60;
     .animation {
         display: flex;
         justify-content: center;
@@ -163,6 +203,19 @@ section.hi {
         }
     }
     .content {
-        max-width: $unit-base * 30;
+        max-width: $unit-base * 26;
+        font-size: $type-large;
+        line-height: $type-large-lh;
+        h1:first-child {
+            color: $color-primary;
+        }
+        p {
+            margin: $unit-base * 3 0;
+        }
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: $unit-base;
+        }
     }
 }
