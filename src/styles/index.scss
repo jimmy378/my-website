@@ -60,3 +60,68 @@ main > section {
         }
     }
 }
+
+.input {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    label {
+        font-size: $type-small;
+        line-height: $type-small-lh;
+        color: rgba($color-base, 0.75);
+        order: 0;
+        transition: color 0.5s ease;
+        user-select: none;
+    }
+    input, textarea {
+        border: none;
+        outline: none;
+        border-bottom: $unit-line solid rgba($color-base, 0.25);
+        min-height: $unit-base * 3;
+        order: 1;
+        transition: background 0.5s ease;
+        border-radius: $unit-line * 2;
+        padding: 0;
+        ~ span {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: $unit-line * 2;
+            background: $color-primary;
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+            transform-origin: left;
+        }
+        &:focus {
+            background: rgba($color-primary, 0.1);
+            + label {
+                color: $color-primary
+            }
+            ~ span {
+                transform: scaleX(1);
+            }
+            box-shadow: none !important;
+            border-radius: $unit-line * 2;
+        }
+    }
+    textarea {
+        min-height: $unit-base * 9;
+    }
+}
+
+input[type="submit"] {
+    cursor: pointer;
+    height: $unit-base * 3;
+    width: fit-content;
+    padding: 0 $unit-base;
+    border-radius: $unit-line * 2;
+    background: $color-white;
+    border: $unit-line solid rgba($color-base, 0.5);
+    &:hover {
+        background: rgba($color-base, 0.05);
+    }
+    &:active {
+        background: rgba($color-base, 0.1);
+    }
+}

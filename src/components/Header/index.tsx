@@ -94,8 +94,14 @@ const Header: FC = () => {
                     setSection(landing.anchor || '');
                     headerRef.current.classList.remove('visible');
                 }
-                if (innerHeight + scrollY >= document.body.offsetHeight) {
+                if (innerHeight + scrollY >= document.body.offsetHeight - 1) {
                     setSection(contact.anchor || '');
+                    const firstInput = document.querySelector('input');
+                    if (firstInput) {
+                        setTimeout(() => {
+                            firstInput.focus();
+                        }, 0);
+                    }
                 }
             }
         };

@@ -2,17 +2,59 @@
 @import '../../styles/variables.scss';
 
 section.skills {
+    h1 {
+        margin-bottom: $unit-base * 2;
+    }
     article {
         display: flex;
         align-items: center;
         gap: $unit-base * 6;
         margin-top: $unit-base * -5;
+        h2 {
+            margin: 0;
+            margin-bottom: $unit-base;
+        }
+        p {
+            margin: 0;
+        }
         .image {
             width: $unit-base * 30;
             min-width: $unit-base * 30;
         }
         &:nth-child(odd) {
             flex-direction: row-reverse;
+        }
+    }
+
+    @include breakpoint-desktop {
+        article {
+            margin-top: $unit-base;
+            .image {
+                width: $unit-base * 20;
+                min-width: $unit-base * 20;
+            }
+        }
+    }
+
+    @include breakpoint-mobile {
+        margin-top: 0;
+        article {
+            flex-direction: column;
+            gap: 0;
+            &:nth-child(odd) {
+                flex-direction: column;
+            }
+            .image {
+                width: 90%;
+                min-width: 90%;
+            }
+            &::after {
+                content: "";
+                width: 100%;
+                height: $unit-line;
+                border-bottom: $unit-line solid rgba($color-base, 0.25);
+                margin: $unit-base * 3 0;
+            }
         }
     }
 }
