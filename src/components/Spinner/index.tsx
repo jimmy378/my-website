@@ -1,3 +1,5 @@
+import './styles.scss';
+
 import * as React from 'react';
 
 const Spinner = () => (

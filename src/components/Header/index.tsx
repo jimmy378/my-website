@@ -1,11 +1,13 @@
+import './styles.scss';
+
 import { motion, PanInfo, useDragControls } from 'framer-motion';
 import { graphql, useStaticQuery } from 'gatsby';
 import * as React from 'react';
 import { FC, useEffect, useRef, useState } from 'react';
 
-import BurgerIcon from '../icons/burger.svg';
-import CloseIcon from '../icons/cross.svg';
-import Link from './Link';
+import BurgerIcon from '../../icons/burger.svg';
+import CloseIcon from '../../icons/cross.svg';
+import Link from '../Link';
 
 const Header: FC = () => {
     const data: Queries.HeaderQuery = useStaticQuery(graphql`
@@ -238,13 +240,6 @@ const Header: FC = () => {
         dragControls.start(event, { snapToCursor: false });
     };
 
-    const getWindowWidth = () => {
-        if (typeof window !== 'undefined') {
-            return window.innerWidth;
-        }
-        return 2000;
-    };
-
     return (
         <>
             <header ref={headerRef}>
@@ -269,7 +264,7 @@ const Header: FC = () => {
                     boxShadow: displayDrawer
                         ? '24px 0 42px rgba(0, 18, 53, 0.1)'
                         : 'none',
-                    x: displayDrawer ? 0 : getWindowWidth() * 0.7,
+                    x: displayDrawer ? 0 : innerWidth * 0.7,
                 }}
                 className={`drawer-nav ${
                     displayDrawer ? 'visible' : ''
@@ -286,7 +281,7 @@ const Header: FC = () => {
                 dragListener={false}
                 initial={{
                     boxShadow: '24px 0 42px rgba(0, 18, 53, 0)',
-                    x: getWindowWidth() * 0.7,
+                    x: innerWidth * 0.7,
                 }}
                 onDragEnd={onDragEnd}
                 transition={{

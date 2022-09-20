@@ -1,0 +1,103 @@
+@use "sass:math";
+@import '../../styles/reset.scss';
+@import '../../styles/variables.scss';
+
+section.hi {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: $unit-base * 60;
+    position: relative;
+    .animation {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        .spinner {
+            position: absolute;
+        }
+        .player {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .content {
+        max-width: $unit-base * 26;
+        font-size: $type-large;
+        line-height: $type-large-lh;
+        h1:first-child {
+            color: $color-primary;
+        }
+        p {
+            margin: $unit-base * 3 0;
+        }
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: $unit-base;
+        }
+    }
+    a.continue {
+        opacity: 0;
+        position: absolute;
+        bottom: $unit-base * 4;
+        filter: invert(63%) sepia(66%) saturate(349%) hue-rotate(73deg) brightness(91%) contrast(86%);
+        transition: opacity 0.5s ease;
+        pointer-events: none;
+        &:active {
+            filter: invert(50%) sepia(32%) saturate(2174%) hue-rotate(85deg) brightness(95%) contrast(80%);
+        }
+        &.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+    }
+    .link.close {
+        display: none;
+        position: absolute;
+        bottom: $unit-base * 4;
+    }
+
+    @include breakpoint-desktop {
+        .animation {
+            display: none;
+            max-width: $unit-base * 50;
+            &.visible {
+                display: flex;
+                flex-direction: column;
+            }
+            .links {
+                display: flex;
+                gap: $unit-base;
+            }
+        }
+        .link.close {
+            display: flex;
+        }
+        a.continue {
+            display: none;
+        }
+    }
+
+    @include breakpoint-mobile {
+        min-height: 0;
+        overflow: hidden;
+        .content {
+            width: 100%;
+            margin-bottom: $unit-base * 6;
+        }
+        .animation {
+            width: initial;
+            max-width: none;
+            .player {
+                width: calc(100vw + $unit-base * 10);
+                margin-bottom: $unit-base * 10;
+            }
+        }
+        .link.close {
+            bottom: $unit-base * 12;
+        }
+    }
+}

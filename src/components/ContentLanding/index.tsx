@@ -1,14 +1,16 @@
+import './styles.scss';
+
 import { graphql, useStaticQuery } from 'gatsby';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import lottie from 'lottie-web';
 import * as React from 'react';
 import { FC, useEffect, useRef, useState } from 'react';
 
-import CaretDownIcon from '../icons/caret_down.svg';
-import CrossIcon from '../icons/cross.svg';
-import WaveIcon from '../icons/wave.svg';
-import Link from './Link';
-import Spinner from './Spinner';
+import CaretDownIcon from '../../icons/caret_down.svg';
+import CrossIcon from '../../icons/cross.svg';
+import WaveIcon from '../../icons/wave.svg';
+import Link from '../Link';
+import Spinner from '../Spinner';
 
 const ContentLanding: FC = () => {
     const data: Queries.LandingQuery = useStaticQuery(graphql`

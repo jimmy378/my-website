@@ -1,0 +1,44 @@
+@use "sass:math";
+@import '../../styles/reset.scss';
+@import '../../styles/variables.scss';
+
+.link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: $unit-base * 3.5;
+    height: $unit-base * 3.5;
+    min-width: $unit-base * 3.5;
+    min-height: $unit-base * 3.5;
+    border: $unit-line solid $color-primary;
+    border-radius: $unit-line * 2;
+    background: $color-white;
+    user-select: none;
+    cursor: pointer;
+    img, svg {
+        width: $unit-base * 1.5;
+        max-width: $unit-base * 1.5;
+        min-width: $unit-base * 1.5;
+        filter: invert(50%) sepia(32%) saturate(2174%) hue-rotate(85deg) brightness(95%) contrast(80%);
+    }
+    &.wave {
+        display: none;
+        svg {
+            width: $unit-base * 2;
+            max-width: $unit-base * 2;
+            min-width: $unit-base * 2;
+        }
+    }
+    &:hover {
+        background: mix($color-white, $color-primary, 90%);
+    }
+    &:active {
+        background: mix($color-white, $color-primary, 80%);
+    }
+
+    @include breakpoint-desktop {
+        &.wave {
+            display: flex;
+        }
+    }
+}

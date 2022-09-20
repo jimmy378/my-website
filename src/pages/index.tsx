@@ -10,6 +10,10 @@ import ContentWork from '../components/ContentWork';
 import Header from '../components/Header';
 
 const IndexPage = () => {
+    if (typeof window === 'undefined') {
+        return <></>;
+    }
+
     return (
         <main>
             <Header />

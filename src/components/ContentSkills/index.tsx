@@ -1,3 +1,5 @@
+import './styles.scss';
+
 import { graphql, useStaticQuery } from 'gatsby';
 import * as React from 'react';
 import { FC } from 'react';
