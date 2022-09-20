@@ -122,7 +122,6 @@ header {
     display: none;
     @include breakpoint-mobile {
         position: fixed;
-        right: calc(70% * -1);
         width: 70%;
         height: 100%;
         z-index: 50;
@@ -130,20 +129,17 @@ header {
         gap: $unit-base * 2;
         flex-direction: column;
         transition: right 0.5s ease, box-shadow 0.5s ease;
-        padding: 0 $unit-base * 3;
-        padding-top: $unit-base * 2.5;
+        padding: $unit-base * 2.5 $unit-base * 3 0 $unit-base * 6;
         background: $color-white;
-        box-shadow: none;
         box-sizing: border-box;
         font-size: $type-large;
         line-height: $type-large-lh;
-        &.visible {
-            right: 0;
-            box-shadow: $shadow-drawer;
-        }
+        right: 0;
+        user-select: none;
         > img {
             width: $unit-base * 3;
             margin-bottom: $unit-base * 3;
+            user-select: none;
         }
         .links {
             margin-top: $unit-base * 3;
@@ -154,6 +150,33 @@ header {
         .header-link {
             width: fit-content;
         }
+        &::after {
+            content: "";
+            position: absolute;
+            top: calc(50% - $unit-base * 4);
+            left: $unit-base * 2.5;
+            width: math.div($unit-base, 2);
+            height: $unit-base * 8;
+            background: rgba($color-base, 0.05);
+            border-radius: $unit-base;
+        }
+    }
+    &.visible {
+        .slider, .closer {
+            display: block;
+        }
+    }
+    .slider, .closer {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: calc(30vw * -1);
+        width: 30vw;
+        height: 100%;
+    }
+    .slider {
+        left: 0;
+        width: $unit-base * 6;
     }
 }
 

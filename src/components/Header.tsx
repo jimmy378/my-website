@@ -1,3 +1,4 @@
+import { motion, PanInfo, useDragControls } from 'framer-motion';
 import { graphql, useStaticQuery } from 'gatsby';
 import * as React from 'react';
 import { FC, useEffect, useRef, useState } from 'react';
@@ -60,6 +61,7 @@ const Header: FC = () => {
     );
     const [activeAnchor, setActiveAnchor] = useState<string | null>();
     const [displayDrawer, setDisplayDrawer] = useState(false);
+    const dragControls = useDragControls();
 
     const anchors = [
         landing.anchor || '',
@@ -216,6 +218,18 @@ const Header: FC = () => {
         );
     };
 
+    const onDragEnd = (e: PointerEvent, info: PanInfo) => {
+        const offset = info.offset.x;
+        if (offset > 100) {
+            setDisplayDrawer(false);
+        }
+    };
+
+    const startDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+        console.log(event);
+        dragControls.start(event, { snapToCursor: false });
+    };
+
     return (
         <>
             <header ref={headerRef}>
@@ -235,11 +249,43 @@ const Header: FC = () => {
                 className={`blur ${displayDrawer ? 'visible' : ''}`.trim()}
                 ref={blurRef}
             />
-            <nav
+            <motion.nav
+                animate={{
+                    boxShadow: displayDrawer
+                        ? '24px 0 42px rgba(0, 18, 53, 0.1)'
+                        : 'none',
+                    x: displayDrawer ? 0 : innerWidth * 0.7,
+                }}
                 className={`drawer-nav ${
                     displayDrawer ? 'visible' : ''
                 }`.trim()}
+                drag="x"
+                dragConstraints={{
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                }}
+                dragControls={dragControls}
+                dragElastic={{ left: 0, right: 0.5 }}
+                dragListener={false}
+                initial={{
+                    boxShadow: '24px 0 42px rgba(0, 18, 53, 0)',
+                    x: innerWidth * 0.7,
+                }}
+                onDragEnd={onDragEnd}
+                transition={{
+                    duration: 0.5,
+                    ease: 'easeOut',
+                    type: 'tween',
+                }}
             >
+                <div
+                    className="closer"
+                    onClick={() => setDisplayDrawer(false)}
+                    onPointerDown={startDrag}
+                />
+                <div className="slider" onPointerDown={startDrag} />
                 <img src={data.file?.publicURL || ''} />
                 {renderLinks()}
                 <div className="links">
@@ -252,7 +298,7 @@ const Header: FC = () => {
                         />
                     ))}
                 </div>
-            </nav>
+            </motion.nav>
         </>
     );
 };
