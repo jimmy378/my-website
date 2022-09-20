@@ -43,10 +43,12 @@ section.hi {
         opacity: 0;
         position: absolute;
         bottom: $unit-base * 4;
-        filter: invert(63%) sepia(66%) saturate(349%) hue-rotate(73deg) brightness(91%) contrast(86%);
         transition: opacity 0.5s ease;
         pointer-events: none;
-        &:active {
+        svg {
+            filter: invert(63%) sepia(66%) saturate(349%) hue-rotate(73deg) brightness(91%) contrast(86%);
+        }
+        &:active svg {
             filter: invert(50%) sepia(32%) saturate(2174%) hue-rotate(85deg) brightness(95%) contrast(80%);
         }
         &.visible {

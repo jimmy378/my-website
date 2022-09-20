@@ -63,13 +63,14 @@ const Header: FC = () => {
     );
     const [activeAnchor, setActiveAnchor] = useState<string | null>();
     const [displayDrawer, setDisplayDrawer] = useState(false);
+    const [scrollPos, setScrollPos] = useState(0);
     const dragControls = useDragControls();
 
     const anchors = [
-        landing.anchor || '',
-        work.anchor || '',
-        skills.anchor || '',
-        contact.anchor || '',
+        { anchor: landing.anchor || '', linkName: landing.linkName },
+        { anchor: work.anchor || '', linkName: work.linkName },
+        { anchor: skills.anchor || '', linkName: skills.linkName },
+        { anchor: contact.anchor || '', linkName: contact.linkName },
     ];
 
     useEffect(() => {
@@ -85,6 +86,7 @@ const Header: FC = () => {
         }
 
         const onScroll = () => {
+            setScrollPos(scrollY);
             if (headerRef.current) {
                 if (scrollY > 0) {
                     headerRef.current.classList.add('visible');
@@ -132,7 +134,7 @@ const Header: FC = () => {
         );
         anchors.forEach((anchor) => {
             observer.observe(
-                document.querySelector(`section.${anchor}`) as any
+                document.querySelector(`section.${anchor.anchor}`) as any
             );
         });
 
@@ -141,7 +143,7 @@ const Header: FC = () => {
             removeEventListener('hashchange', onHashChange);
             anchors.forEach((anchor) => {
                 observer.unobserve(
-                    document.querySelector(`section.${anchor}`) as any
+                    document.querySelector(`section.${anchor.anchor}`) as any
                 );
             });
             removeEventListener('mousedown', onOutsideClick);
@@ -186,46 +188,19 @@ const Header: FC = () => {
     };
 
     const renderLinks = () => {
-        return (
-            <>
-                <a
-                    className={`header-link ${getAnchorClass(
-                        landing.anchor
-                    )}`.trim()}
-                    href={`#${landing.anchor || ''}`}
-                    onClick={() => anchorClicked(landing.anchor || '')}
-                >
-                    {landing.linkName || ''}
-                </a>
-                <a
-                    className={`header-link ${getAnchorClass(
-                        work.anchor
-                    )}`.trim()}
-                    href={`#${work.anchor || ''}`}
-                    onClick={() => anchorClicked(work.anchor || '')}
-                >
-                    {work.linkName || ''}
-                </a>
-                <a
-                    className={`header-link ${getAnchorClass(
-                        skills.anchor
-                    )}`.trim()}
-                    href={`#${skills.anchor || ''}`}
-                    onClick={() => anchorClicked(skills.anchor || '')}
-                >
-                    {skills.linkName || ''}
-                </a>
-                <a
-                    className={`header-link ${getAnchorClass(
-                        contact.anchor
-                    )}`.trim()}
-                    href={`#${contact.anchor || ''}`}
-                    onClick={() => anchorClicked(contact.anchor || '')}
-                >
-                    {contact.linkName || ''}
-                </a>
-            </>
-        );
+        return anchors.map((anchor) => (
+            <a
+                className={`header-link ${getAnchorClass(
+                    anchor.anchor
+                )}`.trim()}
+                href={`#${anchor.anchor || ''}`}
+                key={anchor.linkName}
+                onClick={() => anchorClicked(anchor.anchor || '')}
+                tabIndex={scrollPos > 0 ? 0 : -1}
+            >
+                {anchor.linkName || ''}
+            </a>
+        ));
     };
 
     const onDragEnd = (e: PointerEvent, info: PanInfo) => {

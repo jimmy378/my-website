@@ -2,6 +2,12 @@
 @import './reset.scss';
 @import './variables.scss';
 
+*:focus-visible {
+    box-shadow: $shadow-focus !important;
+    outline: none !important;
+    border-radius: math.div($unit-base, 4);
+}
+
 body {
     color: $color-base;
     font-family: 'Montserrat', sans-serif;
