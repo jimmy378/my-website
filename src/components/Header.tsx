@@ -146,6 +146,14 @@ const Header: FC = () => {
         };
     }, []);
 
+    useEffect(() => {
+        if (displayDrawer) {
+            document.body.classList.add('drawer-open');
+        } else {
+            document.body.classList.remove('drawer-open');
+        }
+    }, [displayDrawer]);
+
     const getAnchorClass = (anchor: string | null): string => {
         if (activeAnchor) {
             return activeAnchor === anchor ? 'focused' : '';
@@ -220,7 +228,7 @@ const Header: FC = () => {
 
     const onDragEnd = (e: PointerEvent, info: PanInfo) => {
         const offset = info.offset.x;
-        if (offset > 100) {
+        if (offset > 25) {
             setDisplayDrawer(false);
         }
     };
@@ -234,7 +242,7 @@ const Header: FC = () => {
         if (typeof window !== 'undefined') {
             return window.innerWidth;
         }
-        return 0;
+        return 2000;
     };
 
     return (
