@@ -5,6 +5,7 @@ import * as React from 'react';
 import { FC, useEffect, useRef, useState } from 'react';
 
 import CaretDownIcon from '../icons/caret_down.svg';
+import CrossIcon from '../icons/cross.svg';
 import WaveIcon from '../icons/wave.svg';
 import Link from './Link';
 import Spinner from './Spinner';
@@ -43,6 +44,7 @@ const ContentLanding: FC = () => {
     const playerRef = useRef<HTMLDivElement>(null);
     const [loading, setLoading] = useState(true);
     const [displayMobileAnimation, setDisplayMobileAnimation] = useState(false);
+    const [continueVisible, setContinueVisible] = useState(true);
     const { anchor, animation, content, links } = data.contentfulLandingSection;
 
     useEffect(() => {
@@ -58,14 +60,23 @@ const ContentLanding: FC = () => {
         });
 
         const onDomLoaded = () => {
-            console.log('hi');
             setLoading(false);
         };
         anim.addEventListener('DOMLoaded', () => onDomLoaded());
 
+        const handleClick = () => {
+            setDisplayMobileAnimation(false);
+        };
+        addEventListener('mousedown', handleClick);
+
+        const onScroll = () => setContinueVisible(scrollY === 0);
+        addEventListener('scroll', onScroll);
+
         return () => {
             anim.removeEventListener('DOMLoaded', () => onDomLoaded());
             anim.destroy();
+            removeEventListener('mousedown', handleClick);
+            removeEventListener('scroll', onScroll);
         };
     }, []);
 
@@ -107,12 +118,21 @@ const ContentLanding: FC = () => {
                     {loading && <Spinner />}
                     <div className="player" ref={playerRef} />
                 </div>
-                <a
-                    className="continue"
-                    href={`#${data.contentfulWorkSection?.anchor || ''}`}
-                >
-                    <CaretDownIcon />
-                </a>
+                {displayMobileAnimation && (
+                    <a aria-label={'Show animation'} className="link close">
+                        <CrossIcon />
+                    </a>
+                )}
+                {!displayMobileAnimation && (
+                    <a
+                        className={`continue ${
+                            continueVisible ? 'visible' : ''
+                        }`.trim()}
+                        href={`#${data.contentfulWorkSection?.anchor || ''}`}
+                    >
+                        <CaretDownIcon />
+                    </a>
+                )}
             </section>
         </>
     );

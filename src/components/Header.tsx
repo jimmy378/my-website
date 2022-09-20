@@ -2,6 +2,10 @@ import { graphql, useStaticQuery } from 'gatsby';
 import * as React from 'react';
 import { FC, useEffect, useRef, useState } from 'react';
 
+import BurgerIcon from '../icons/burger.svg';
+import CloseIcon from '../icons/cross.svg';
+import Link from './Link';
+
 const Header: FC = () => {
     const data: Queries.HeaderQuery = useStaticQuery(graphql`
         query Header {
@@ -11,6 +15,14 @@ const Header: FC = () => {
             contentfulLandingSection {
                 anchor
                 linkName
+                links {
+                    url
+                    title
+                    icon {
+                        url
+                        title
+                    }
+                }
             }
             contentfulWorkSection {
                 anchor
@@ -42,10 +54,12 @@ const Header: FC = () => {
     const contact = data.contentfulContactSection;
 
     const headerRef = useRef<HTMLHeadingElement>(null);
+    const blurRef = useRef<HTMLDivElement>(null);
     const [focusedAnchor, setfocusedAnchor] = useState<string>(
         landing.anchor || ''
     );
     const [activeAnchor, setActiveAnchor] = useState<string | null>();
+    const [displayDrawer, setDisplayDrawer] = useState(false);
 
     const anchors = [
         landing.anchor || '',
@@ -80,6 +94,13 @@ const Header: FC = () => {
             }
         };
         addEventListener('scroll', onScroll);
+
+        const onOutsideClick = (e: MouseEvent) => {
+            if (e.target === blurRef.current) {
+                setDisplayDrawer(false);
+            }
+        };
+        addEventListener('mousedown', onOutsideClick);
 
         const onHashChange = (e: HashChangeEvent) => {
             e.preventDefault();
@@ -119,6 +140,7 @@ const Header: FC = () => {
                     document.querySelector(`section.${anchor}`) as any
                 );
             });
+            removeEventListener('mousedown', onOutsideClick);
         };
     }, []);
 
@@ -145,47 +167,93 @@ const Header: FC = () => {
 
     const anchorClicked = (anchor: string) => {
         setActiveAnchor(anchor);
+        setDisplayDrawer(false);
         setTimeout(() => {
             setActiveAnchor(null);
         }, 1000);
     };
 
+    const renderLinks = () => {
+        return (
+            <>
+                <a
+                    className={`header-link ${getAnchorClass(
+                        landing.anchor
+                    )}`.trim()}
+                    href={`#${landing.anchor || ''}`}
+                    onClick={() => anchorClicked(landing.anchor || '')}
+                >
+                    {landing.linkName || ''}
+                </a>
+                <a
+                    className={`header-link ${getAnchorClass(
+                        work.anchor
+                    )}`.trim()}
+                    href={`#${work.anchor || ''}`}
+                    onClick={() => anchorClicked(work.anchor || '')}
+                >
+                    {work.linkName || ''}
+                </a>
+                <a
+                    className={`header-link ${getAnchorClass(
+                        skills.anchor
+                    )}`.trim()}
+                    href={`#${skills.anchor || ''}`}
+                    onClick={() => anchorClicked(skills.anchor || '')}
+                >
+                    {skills.linkName || ''}
+                </a>
+                <a
+                    className={`header-link ${getAnchorClass(
+                        contact.anchor
+                    )}`.trim()}
+                    href={`#${contact.anchor || ''}`}
+                    onClick={() => anchorClicked(contact.anchor || '')}
+                >
+                    {contact.linkName || ''}
+                </a>
+            </>
+        );
+    };
+
     return (
-        <header ref={headerRef}>
-            <div>
+        <>
+            <header ref={headerRef}>
+                <div>
+                    <img src={data.file?.publicURL || ''} />
+                    <nav>{renderLinks()}</nav>
+                </div>
+                <a
+                    aria-label={'Show navigation'}
+                    className="link nav"
+                    onClick={() => setDisplayDrawer(!displayDrawer)}
+                >
+                    {displayDrawer ? <CloseIcon /> : <BurgerIcon />}
+                </a>
+            </header>
+            <div
+                className={`blur ${displayDrawer ? 'visible' : ''}`.trim()}
+                ref={blurRef}
+            />
+            <nav
+                className={`drawer-nav ${
+                    displayDrawer ? 'visible' : ''
+                }`.trim()}
+            >
                 <img src={data.file?.publicURL || ''} />
-                <nav>
-                    <a
-                        className={getAnchorClass(landing.anchor)}
-                        href={`#${landing.anchor || ''}`}
-                        onClick={() => anchorClicked(landing.anchor || '')}
-                    >
-                        {landing.linkName || ''}
-                    </a>
-                    <a
-                        className={getAnchorClass(work.anchor)}
-                        href={`#${work.anchor || ''}`}
-                        onClick={() => anchorClicked(work.anchor || '')}
-                    >
-                        {work.linkName || ''}
-                    </a>
-                    <a
-                        className={getAnchorClass(skills.anchor)}
-                        href={`#${skills.anchor || ''}`}
-                        onClick={() => anchorClicked(skills.anchor || '')}
-                    >
-                        {skills.linkName || ''}
-                    </a>
-                    <a
-                        className={getAnchorClass(contact.anchor)}
-                        href={`#${contact.anchor || ''}`}
-                        onClick={() => anchorClicked(contact.anchor || '')}
-                    >
-                        {contact.linkName || ''}
-                    </a>
-                </nav>
-            </div>
-        </header>
+                {renderLinks()}
+                <div className="links">
+                    {data.contentfulLandingSection.links?.map((link) => (
+                        <Link
+                            href={link?.url || ''}
+                            icon={link?.icon?.url || ''}
+                            key={link?.title}
+                            title={link?.title || ''}
+                        />
+                    ))}
+                </div>
+            </nav>
+        </>
     );
 };
 

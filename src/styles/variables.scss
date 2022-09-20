@@ -33,4 +33,5 @@ $unit-mobile: 640px;
     }
  }
 
- $shadow-header: 0 $unit-base $unit-base * 3.5 rgba($color-base, 0.025);
+$shadow-header: 0 $unit-base $unit-base * 3.5 rgba($color-base, 0.025);
+$shadow-drawer: $unit-base * -2 0 $unit-base * 3.5 rgba($color-base, 0.1);
