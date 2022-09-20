@@ -1,6 +1,8 @@
 import './styles.scss';
 
 import { graphql, useStaticQuery } from 'gatsby';
+import { GatsbyImage } from 'gatsby-plugin-image';
+import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import * as React from 'react';
 import { FC } from 'react';
 
@@ -12,7 +14,7 @@ const ContentSkills: FC = () => {
                 linkName
                 skills {
                     image {
-                        url
+                        gatsbyImageData
                     }
                     title
                     content {
@@ -27,12 +29,29 @@ const ContentSkills: FC = () => {
         return null;
     }
 
-    const { anchor } = data.contentfulSkillsSection;
+    const { anchor, linkName, skills } = data.contentfulSkillsSection;
 
     return (
         <>
             <a className={anchor || ''} />
-            <section className={anchor || ''}></section>
+            <section className={anchor || ''}>
+                <h1>{linkName || ''}</h1>
+                {skills?.map((skill, index) => (
+                    <article key={`skill-${index}`}>
+                        <div className="content">
+                            {skill?.content &&
+                                renderRichText(skill.content as any, {})}
+                        </div>
+                        {skill?.image?.gatsbyImageData && (
+                            <GatsbyImage
+                                alt={skill.title || ''}
+                                className="image"
+                                image={skill.image.gatsbyImageData}
+                            />
+                        )}
+                    </article>
+                ))}
+            </section>
         </>
     );
 };

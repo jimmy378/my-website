@@ -18,12 +18,14 @@ const ContentContact: FC = () => {
         return null;
     }
 
-    const { anchor } = data.contentfulContactSection;
+    const { anchor, linkName } = data.contentfulContactSection;
 
     return (
         <>
             <a className={anchor || ''} />
-            <section className={anchor || ''}></section>
+            <section className={anchor || ''}>
+                <h1>{linkName || ''}</h1>
+            </section>
         </>
     );
 };

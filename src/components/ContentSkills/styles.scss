@@ -1,2 +1,18 @@
 @use "sass:math";
 @import '../../styles/variables.scss';
+
+section.skills {
+    article {
+        display: flex;
+        align-items: center;
+        gap: $unit-base * 6;
+        margin-top: $unit-base * -5;
+        .image {
+            width: $unit-base * 30;
+            min-width: $unit-base * 30;
+        }
+        &:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+    }
+}

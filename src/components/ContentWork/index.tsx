@@ -23,12 +23,14 @@ const ContentWork: FC = () => {
         return null;
     }
 
-    const { anchor } = data.contentfulWorkSection;
+    const { anchor, linkName } = data.contentfulWorkSection;
 
     return (
         <>
             <a className={anchor || ''} />
-            <section className={anchor || ''}></section>
+            <section className={anchor || ''}>
+                <h1>{linkName || ''}</h1>
+            </section>
         </>
     );
 };
