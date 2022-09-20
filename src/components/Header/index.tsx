@@ -244,7 +244,7 @@ const Header: FC = () => {
                 animate={{
                     boxShadow: displayDrawer
                         ? '24px 0 42px rgba(0, 18, 53, 0.1)'
-                        : 'none',
+                        : '24px 0 42px rgba(0, 18, 53, 0)',
                     x: displayDrawer ? 0 : innerWidth * 0.7,
                 }}
                 className={`drawer-nav ${

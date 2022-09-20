@@ -36,11 +36,17 @@ const config: GatsbyConfig = {
         },
         {
             options: {
-                fonts: [`Montserrat:400,700`],
+                fonts: [
+                    {
+                        family: `Montserrat`,
+                        variants: [`400`, `700`],
+                    },
+                ],
             },
-            resolve: `gatsby-plugin-google-fonts`,
+            resolve: `gatsby-plugin-prefetch-google-fonts`,
         },
         'gatsby-plugin-mdx',
+        'gatsby-plugin-webpack-bundle-analyser-v2',
         {
             __key: 'images',
             options: {
