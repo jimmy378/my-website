@@ -388,9 +388,15 @@ section.hi {
             margin-bottom: $unit-base * 6;
         }
         .animation {
-            margin: 0 $unit-base * -16;
             width: initial;
             max-width: none;
+            .player {
+                width: calc(100vw + $unit-base * 10);
+                margin-bottom: $unit-base * 10;
+            }
+        }
+        .link.close {
+            bottom: $unit-base * 12;
         }
     }
 }
