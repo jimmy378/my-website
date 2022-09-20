@@ -170,8 +170,10 @@ header {
         opacity: 0;
         transition: opacity 0.5s ease;
         z-index: 10;
+        pointer-events: none;
         &.visible {
             opacity: 1;
+            pointer-events: all;
         }
     }
 }
@@ -360,6 +362,7 @@ section.hi {
         overflow: hidden;
         .content {
             width: 100%;
+            margin-bottom: $unit-base * 6;
         }
         .animation {
             margin: 0 $unit-base * -16;
