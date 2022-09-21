@@ -2,6 +2,7 @@
 @import '../../styles/variables.scss';
 
 section.contact {
+    overflow: hidden;
     display: flex;
     .content {
         height: $unit-base * 40;
@@ -21,6 +22,9 @@ section.contact {
     }
     .animation {
         overflow: hidden;
+        height: $unit-base * 50;
+        width: 100%;
+        transform: scale(1.2) translateX($unit-base * 4) translateY($unit-base * 4);
         .player {
             height: 100%;
         }

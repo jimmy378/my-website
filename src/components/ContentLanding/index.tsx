@@ -56,12 +56,7 @@ const ContentLanding: FC = () => {
             loop: true,
             path: animation?.url || '',
             renderer: 'canvas',
-            rendererSettings: {
-                className: 'canvas',
-                preserveAspectRatio: 'xMinYMid meet',
-            },
         });
-
         const onDomLoaded = () => {
             setLoading(false);
         };
@@ -74,7 +69,6 @@ const ContentLanding: FC = () => {
 
         const onScroll = () => setContinueVisible(scrollY === 0);
         addEventListener('scroll', onScroll);
-
         return () => {
             anim.removeEventListener('DOMLoaded', () => onDomLoaded());
             anim.destroy();

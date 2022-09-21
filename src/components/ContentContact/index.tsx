@@ -34,9 +34,9 @@ const ContentContact: FC = () => {
             container: playerRef.current as any,
             loop: true,
             path: animation?.url || '',
-            renderer: 'svg',
+            renderer: 'canvas',
             rendererSettings: {
-                preserveAspectRatio: 'xMidYMax',
+                preserveAspectRatio: 'xMidYMin meet',
             },
         });
 
@@ -44,7 +44,6 @@ const ContentContact: FC = () => {
             setLoading(false);
         };
         anim.addEventListener('DOMLoaded', () => onDomLoaded());
-
         return () => {
             anim.removeEventListener('DOMLoaded', () => onDomLoaded());
             anim.destroy();
