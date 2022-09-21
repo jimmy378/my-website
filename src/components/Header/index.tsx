@@ -97,7 +97,7 @@ const Header: FC = () => {
                 if (innerHeight + scrollY >= document.body.offsetHeight - 1) {
                     setSection(contact.anchor || '');
                     const firstInput = document.querySelector('input');
-                    if (firstInput) {
+                    if (firstInput && matchMedia('max-width: 640px')) {
                         setTimeout(() => {
                             firstInput.focus();
                         }, 0);
