@@ -55,10 +55,7 @@ const ContentLanding: FC = () => {
             container: playerRef.current as any,
             loop: true,
             path: animation?.url || '',
-            renderer: 'svg',
-            rendererSettings: {
-                preserveAspectRatio: 'xMidYMid',
-            },
+            renderer: 'canvas',
         });
 
         const onDomLoaded = () => {

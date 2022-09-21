@@ -1,4 +1,6 @@
 import '../styles/index.scss';
+import '@fontsource/montserrat/400.css';
+import '@fontsource/montserrat/700.css';
 
 import { graphql, HeadFC } from 'gatsby';
 import * as React from 'react';

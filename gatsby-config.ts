@@ -34,17 +34,6 @@ const config: GatsbyConfig = {
             },
             resolve: 'gatsby-plugin-react-svg',
         },
-        {
-            options: {
-                fonts: [
-                    {
-                        family: `Montserrat`,
-                        variants: [`400`, `700`],
-                    },
-                ],
-            },
-            resolve: `gatsby-plugin-prefetch-google-fonts`,
-        },
         'gatsby-plugin-mdx',
         'gatsby-plugin-webpack-bundle-analyser-v2',
         {
