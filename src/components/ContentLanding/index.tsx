@@ -56,6 +56,10 @@ const ContentLanding: FC = () => {
             loop: true,
             path: animation?.url || '',
             renderer: 'canvas',
+            rendererSettings: {
+                className: 'canvas',
+                preserveAspectRatio: 'xMinYMid meet',
+            },
         });
 
         const onDomLoaded = () => {
