@@ -60,7 +60,12 @@ const ContentContact: FC = () => {
             <section className={anchor || ''}>
                 <div className="content">
                     <h1>{linkName || ''}</h1>
-                    <form onSubmit={onSubmit}>
+                    <form
+                        data-netlify="true"
+                        method="POST"
+                        name="contact"
+                        onSubmit={onSubmit}
+                    >
                         <span className="input">
                             <input
                                 id="name"
