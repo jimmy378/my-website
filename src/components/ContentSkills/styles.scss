@@ -40,9 +40,12 @@ section.skills {
         margin-top: 0;
         article {
             flex-direction: column;
-            gap: 0;
+            gap: $unit-base * 2;
             &:nth-child(odd) {
                 flex-direction: column;
+            }
+            &:last-child::after {
+                border-bottom: none;
             }
             .image {
                 width: 90%;
@@ -52,7 +55,7 @@ section.skills {
                 content: "";
                 width: 100%;
                 height: $unit-line;
-                border-bottom: $unit-line solid rgba($color-base, 0.25);
+                border-bottom: $unit-line solid rgba($color-base, 0.15);
                 margin: $unit-base * 3 0;
             }
         }

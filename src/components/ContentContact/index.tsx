@@ -27,6 +27,7 @@ const ContentContact: FC = () => {
     const { anchor, animation, linkName } = data.contentfulContactSection;
     const playerRef = useRef<HTMLDivElement>(null);
     const [loading, setLoading] = useState(true);
+    const [sendMessage, setSendMessage] = useState('');
 
     useEffect(() => {
         const anim = lottie.loadAnimation({
@@ -52,6 +53,21 @@ const ContentContact: FC = () => {
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const form = e.target as HTMLFormElement;
+        const data = new FormData(form);
+        const xhr = new XMLHttpRequest();
+        xhr.open(form.method, form.action);
+        xhr.setRequestHeader('Accept', 'application/json');
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState !== XMLHttpRequest.DONE) return;
+            if (xhr.status === 200) {
+                form.reset();
+                setSendMessage('Message sent');
+            } else {
+                setSendMessage('Message not sent');
+            }
+        };
+        xhr.send(data);
     };
 
     return (
@@ -61,7 +77,9 @@ const ContentContact: FC = () => {
                 <div className="content">
                     <h1>{linkName || ''}</h1>
                     <form
+                        action="#"
                         data-netlify="true"
+                        id="contact"
                         method="POST"
                         name="contact"
                         onSubmit={onSubmit}
@@ -92,7 +110,10 @@ const ContentContact: FC = () => {
                             <label htmlFor="message">{'Message'}</label>
                             <span />
                         </span>
-                        <input type="submit" value="Submit" />
+                        <div>
+                            {sendMessage && <p>{sendMessage}</p>}
+                            <input type="submit" value="Submit" />
+                        </div>
                     </form>
                 </div>
                 <div className="animation">

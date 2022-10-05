@@ -69,11 +69,19 @@ const ContentLanding: FC = () => {
 
         const onScroll = () => setContinueVisible(scrollY === 0);
         addEventListener('scroll', onScroll);
+
+        const handleResize = () => {
+            (lottie as any).resize();
+        };
+        addEventListener('resize', handleResize);
+        addEventListener('orientationchange', handleResize);
         return () => {
             anim.removeEventListener('DOMLoaded', () => onDomLoaded());
             anim.destroy();
             removeEventListener('mousedown', handleClick);
             removeEventListener('scroll', onScroll);
+            removeEventListener('resize', handleResize);
+            removeEventListener('orientationchange', handleResize);
         };
     }, []);
 
