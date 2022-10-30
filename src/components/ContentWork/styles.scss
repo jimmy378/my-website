@@ -1,2 +1,109 @@
 @use "sass:math";
 @import '../../styles/variables.scss';
+
+section.work {
+    h1 {
+        margin-bottom: $unit-base * 3;
+    }
+    article {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: $unit-base * 3;
+        box-shadow: $shadow-card;
+        transition: all 0.15s ease;
+        box-sizing: border-box;
+        cursor: pointer;
+        &:not(:last-child) {
+            margin-bottom: $unit-base * 3;
+        }
+        h2 {
+            display: inline-block;
+            margin: 0;
+            margin-bottom: $unit-base;
+            transition: all 0.15s ease;
+            position: relative;
+            &::before {
+                content: "";
+                position: absolute;
+                bottom: math.div($unit-base, -4);
+                width: 0;
+                height: $unit-line;
+                border-bottom: $unit-line solid $color-primary;
+                transition: width 0.25s ease;
+            }
+        }
+        p {
+            margin: 0;
+            margin-bottom: $unit-base;
+        }
+        .image {
+            width: $unit-base * 16.5;
+            min-width: $unit-base * 16.5;
+            height: $unit-base * 16.5;
+            min-height: $unit-base * 16.5;
+            object-fit: cover;
+            background: $color-light-grey;
+        }
+
+        &:hover {
+            box-shadow: $shadow-hover;
+            transform: scale(1.005);
+            h2 {
+                color: $color-primary;
+                &::before {
+                    width: 100%;
+                }
+            }
+        }
+
+        &:active {
+            box-shadow: $shadow-active;
+            transform: scale(1);
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            height: 100%;
+            width: math.div($unit-base, 2);
+            background: $color-primary;
+        }
+    }
+
+    @include breakpoint-desktop {
+        article {
+            margin-top: $unit-base;
+            .image {
+                width: $unit-base * 20;
+                min-width: $unit-base * 20;
+            }
+        }
+    }
+
+    @include breakpoint-mobile {
+        margin-top: 0;
+        article {
+            flex-direction: column;
+            gap: $unit-base * 2;
+            &:nth-child(odd) {
+                flex-direction: column;
+            }
+            &:last-child::after {
+                border-bottom: none;
+            }
+            .image {
+                width: 90%;
+                min-width: 90%;
+            }
+            &::after {
+                content: "";
+                width: 100%;
+                height: $unit-line;
+                border-bottom: $unit-line solid rgba($color-base, 0.15);
+                margin: $unit-base * 3 0;
+            }
+        }
+    }
+}

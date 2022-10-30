@@ -15,13 +15,13 @@ import Spinner from '../Spinner';
 const ContentLanding: FC = () => {
     const data: Queries.LandingQuery = useStaticQuery(graphql`
         query Landing {
-            contentfulLandingSection {
-                linkName
-                anchor
-                animation {
+            contentfulHomePage {
+                landingAnchor
+                landingSection
+                landingAnimation {
                     url
                 }
-                content {
+                landingContent {
                     raw
                 }
                 links {
@@ -32,14 +32,12 @@ const ContentLanding: FC = () => {
                         title
                     }
                 }
-            }
-            contentfulWorkSection {
-                anchor
+                workAnchor
             }
         }
     `);
 
-    if (!data.contentfulLandingSection) {
+    if (!data.contentfulHomePage) {
         return null;
     }
 
@@ -47,14 +45,20 @@ const ContentLanding: FC = () => {
     const [loading, setLoading] = useState(true);
     const [displayMobileAnimation, setDisplayMobileAnimation] = useState(false);
     const [continueVisible, setContinueVisible] = useState(true);
-    const { anchor, animation, content, links } = data.contentfulLandingSection;
+    const {
+        landingAnchor,
+        landingAnimation,
+        landingContent,
+        links,
+        workAnchor,
+    } = data.contentfulHomePage;
 
     useEffect(() => {
         const anim = lottie.loadAnimation({
             autoplay: true,
             container: playerRef.current as any,
             loop: true,
-            path: animation?.url || '',
+            path: landingAnimation?.url || '',
             renderer: 'canvas',
         });
         const onDomLoaded = () => {
@@ -87,11 +91,12 @@ const ContentLanding: FC = () => {
 
     return (
         <>
-            <a className={anchor || ''} />
-            <section className={anchor || ''}>
+            <a className={landingAnchor || ''} />
+            <section className={landingAnchor || ''}>
                 {!displayMobileAnimation && (
                     <div className="content">
-                        {content && renderRichText(content as any, {})}
+                        {landingContent &&
+                            renderRichText(landingContent as any, {})}
                         <div className="links">
                             {links?.map((link) => (
                                 <Link
@@ -133,7 +138,7 @@ const ContentLanding: FC = () => {
                         className={`continue ${
                             continueVisible ? 'visible' : ''
                         }`.trim()}
-                        href={`#${data.contentfulWorkSection?.anchor || ''}`}
+                        href={`#${workAnchor || ''}`}
                     >
                         <CaretDownIcon />
                     </a>

@@ -9,9 +9,9 @@ import { FC } from 'react';
 const ContentSkills: FC = () => {
     const data: Queries.SkillsQuery = useStaticQuery(graphql`
         query Skills {
-            contentfulSkillsSection {
-                anchor
-                linkName
+            contentfulHomePage {
+                skillsSection
+                skillsAnchor
                 skills {
                     image {
                         gatsbyImageData
@@ -25,17 +25,17 @@ const ContentSkills: FC = () => {
         }
     `);
 
-    if (!data.contentfulSkillsSection) {
+    if (!data.contentfulHomePage) {
         return null;
     }
 
-    const { anchor, linkName, skills } = data.contentfulSkillsSection;
+    const { skills, skillsAnchor, skillsSection } = data.contentfulHomePage;
 
     return (
         <>
-            <a className={anchor || ''} />
-            <section className={anchor || ''}>
-                <h1>{linkName || ''}</h1>
+            <a className={skillsAnchor || ''} />
+            <section className={skillsAnchor || ''}>
+                <h1>{skillsSection || ''}</h1>
                 {skills?.map((skill, index) => (
                     <article key={`skill-${index}`}>
                         <div className="content">

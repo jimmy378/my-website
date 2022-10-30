@@ -15,9 +15,9 @@ const Header: FC = () => {
             file(name: { eq: "icon_black" }) {
                 publicURL
             }
-            contentfulLandingSection {
-                anchor
-                linkName
+            contentfulHomePage {
+                landingSection
+                landingAnchor
                 links {
                     url
                     title
@@ -26,40 +26,36 @@ const Header: FC = () => {
                         title
                     }
                 }
-            }
-            contentfulWorkSection {
-                anchor
-                linkName
-            }
-            contentfulSkillsSection {
-                anchor
-                linkName
-            }
-            contentfulContactSection {
-                anchor
-                linkName
+                workSection
+                workAnchor
+                skillsSection
+                skillsAnchor
+                contactSection
+                contactAnchor
             }
         }
     `);
 
-    if (
-        !data.contentfulLandingSection ||
-        !data.contentfulWorkSection ||
-        !data.contentfulSkillsSection ||
-        !data.contentfulContactSection
-    ) {
+    if (!data.contentfulHomePage) {
         return null;
     }
 
-    const landing = data.contentfulLandingSection;
-    const work = data.contentfulWorkSection;
-    const skills = data.contentfulSkillsSection;
-    const contact = data.contentfulContactSection;
+    const {
+        contactAnchor,
+        contactSection,
+        landingAnchor,
+        landingSection,
+        links,
+        skillsAnchor,
+        skillsSection,
+        workAnchor,
+        workSection,
+    } = data.contentfulHomePage;
 
     const headerRef = useRef<HTMLHeadingElement>(null);
     const blurRef = useRef<HTMLDivElement>(null);
     const [focusedAnchor, setfocusedAnchor] = useState<string>(
-        landing.anchor || ''
+        landingAnchor || ''
     );
     const [activeAnchor, setActiveAnchor] = useState<string | null>();
     const [displayDrawer, setDisplayDrawer] = useState(false);
@@ -67,20 +63,20 @@ const Header: FC = () => {
     const dragControls = useDragControls();
 
     const anchors = [
-        { anchor: landing.anchor || '', linkName: landing.linkName },
-        { anchor: work.anchor || '', linkName: work.linkName },
-        { anchor: skills.anchor || '', linkName: skills.linkName },
-        { anchor: contact.anchor || '', linkName: contact.linkName },
+        { anchor: landingAnchor || '', linkName: landingSection },
+        { anchor: workAnchor || '', linkName: workSection },
+        { anchor: skillsAnchor || '', linkName: skillsSection },
+        { anchor: contactAnchor || '', linkName: contactSection },
     ];
 
     useEffect(() => {
         history.scrollRestoration = 'manual';
         if (!location.hash) {
-            const section = document.querySelector(`.${landing.anchor}`);
+            const section = document.querySelector(`.${landingAnchor}`);
             if (section) {
                 scrollIntoView(
                     section,
-                    location.hash.substring(1) || landing.anchor || ''
+                    location.hash.substring(1) || landingAnchor || ''
                 );
             }
         }
@@ -91,11 +87,11 @@ const Header: FC = () => {
                 if (scrollY > 0) {
                     headerRef.current.classList.add('visible');
                 } else {
-                    setSection(landing.anchor || '');
+                    setSection(landingAnchor || '');
                     headerRef.current.classList.remove('visible');
                 }
                 if (innerHeight + scrollY >= document.body.offsetHeight - 1) {
-                    setSection(contact.anchor || '');
+                    setSection(contactAnchor || '');
                     const firstInput = document.querySelector('input');
                     if (firstInput && matchMedia('max-width: 640px')) {
                         setTimeout(() => {
@@ -117,12 +113,12 @@ const Header: FC = () => {
         const onHashChange = (e: HashChangeEvent) => {
             e.preventDefault();
             const section = document.querySelector(
-                `a.${location.hash.substring(1) || landing.anchor}`
+                `a.${location.hash.substring(1) || landingAnchor}`
             );
             if (section) {
                 scrollIntoView(
                     section,
-                    location.hash.substring(1) || landing.anchor || ''
+                    location.hash.substring(1) || landingAnchor || ''
                 );
             }
         };
@@ -280,7 +276,7 @@ const Header: FC = () => {
                 <img src={data.file?.publicURL || ''} />
                 {renderLinks()}
                 <div className="links">
-                    {data.contentfulLandingSection.links?.map((link) => (
+                    {links?.map((link) => (
                         <Link
                             href={link?.url || ''}
                             icon={link?.icon?.url || ''}

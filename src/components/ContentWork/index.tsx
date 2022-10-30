@@ -1,35 +1,61 @@
 import './styles.scss';
 
 import { graphql, useStaticQuery } from 'gatsby';
+import { GatsbyImage } from 'gatsby-plugin-image';
+import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import * as React from 'react';
 import { FC } from 'react';
 
 const ContentWork: FC = () => {
     const data: Queries.WorkQuery = useStaticQuery(graphql`
         query Work {
-            contentfulWorkSection {
+            contentfulHomePage {
+                workSection
+                workAnchor
+                workCount
                 posts {
-                    title
                     slug
+                    title
+                    thumbnail {
+                        gatsbyImageData(layout: FULL_WIDTH)
+                    }
+                    description {
+                        raw
+                    }
                 }
-                linkName
-                anchor
-                count
             }
         }
     `);
 
-    if (!data.contentfulWorkSection) {
+    if (!data.contentfulHomePage) {
         return null;
     }
 
-    const { anchor, linkName } = data.contentfulWorkSection;
+    const { posts, workAnchor, workCount, workSection } =
+        data.contentfulHomePage;
 
     return (
         <>
-            <a className={anchor || ''} />
-            <section className={anchor || ''}>
-                <h1>{linkName || ''}</h1>
+            <a className={workAnchor || ''} />
+            <section className={workAnchor || ''}>
+                <h1>{workSection || ''}</h1>
+                {posts?.map((post) => (
+                    <article key={post?.slug}>
+                        {post?.thumbnail?.gatsbyImageData && (
+                            <GatsbyImage
+                                alt={post.title || ''}
+                                className="image"
+                                image={post.thumbnail.gatsbyImageData}
+                            />
+                        )}
+                        <div className="content">
+                            <h2>{post?.title}</h2>
+                            {post?.description &&
+                                renderRichText(post?.description as any, {})}
+                            <a href={post?.slug || ''}>{'Read more'}</a>
+                        </div>
+                    </article>
+                ))}
             </section>
         </>
     );

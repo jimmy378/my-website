@@ -72,7 +72,7 @@ const config: GatsbyConfig = {
     siteMetadata: {
         description: `I'm a motion graphics artist, web designer and illustrator based in Sydney, Australia.`,
         siteUrl: `https://jamesandersondesign.com.au/`,
-        title: `My website`,
+        title: `James Anderson - Product Designer and Web Developer`,
     },
 };
 

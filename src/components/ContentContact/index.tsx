@@ -10,21 +10,22 @@ import Spinner from '../Spinner';
 const ContentContact: FC = () => {
     const data: Queries.ContactQuery = useStaticQuery(graphql`
         query Contact {
-            contentfulContactSection {
-                anchor
-                animation {
+            contentfulHomePage {
+                contactSection
+                contactAnchor
+                contactAnimation {
                     url
                 }
-                linkName
             }
         }
     `);
 
-    if (!data.contentfulContactSection) {
+    if (!data.contentfulHomePage) {
         return null;
     }
 
-    const { anchor, animation, linkName } = data.contentfulContactSection;
+    const { contactAnchor, contactAnimation, contactSection } =
+        data.contentfulHomePage;
     const playerRef = useRef<HTMLDivElement>(null);
     const [loading, setLoading] = useState(true);
     const [sendMessage, setSendMessage] = useState('');
@@ -34,7 +35,7 @@ const ContentContact: FC = () => {
             autoplay: true,
             container: playerRef.current as any,
             loop: true,
-            path: animation?.url || '',
+            path: contactAnimation?.url || '',
             renderer: 'canvas',
             rendererSettings: {
                 preserveAspectRatio: 'xMidYMin meet',
@@ -72,10 +73,10 @@ const ContentContact: FC = () => {
 
     return (
         <>
-            <a className={anchor || ''} />
-            <section className={anchor || ''}>
+            <a className={contactAnchor || ''} />
+            <section className={contactAnchor || ''}>
                 <div className="content">
-                    <h1>{linkName || ''}</h1>
+                    <h1>{contactSection || ''}</h1>
                     <form
                         action="#"
                         data-netlify="true"

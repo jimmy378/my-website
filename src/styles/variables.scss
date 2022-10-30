@@ -35,6 +35,9 @@ $unit-mobile: 640px;
 
 $shadow-header: 0 $unit-base $unit-base * 3.5 rgba($color-base, 0.025);
 $shadow-drawer: $unit-base * -2 0 $unit-base * 3.5 rgba($color-base, 0.1);
+$shadow-card: 0 $unit-base * 2.5 $unit-base * 2.5 rgba($color-base, 0.02);
+$shadow-hover: 0 $unit-base * 2.5 $unit-base * 4 rgba($color-base, 0.05);
+$shadow-active: 0 $unit-base $unit-base rgba($color-base, 0.05);
 $shadow-focus: inset 0 0 0 2px $color-white,
 0 0 0 1px $color-primary,
 0 0 0 3px rgba($color-primary, 0.2),

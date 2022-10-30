@@ -27,6 +27,12 @@ h1 {
     margin: 0;
 }
 
+h2 {
+    font-size: $type-large;
+    line-height: $type-large-lh;
+    margin: 0;
+}
+
 a {
     color: $color-primary-dark;
     appearance: none;
