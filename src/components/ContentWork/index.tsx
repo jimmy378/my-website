@@ -22,6 +22,9 @@ const ContentWork: FC = () => {
                     description {
                         raw
                     }
+                    tags {
+                        tags
+                    }
                 }
             }
         }
@@ -41,6 +44,7 @@ const ContentWork: FC = () => {
                 <h1>{workSection || ''}</h1>
                 {posts?.map((post) => (
                     <article key={post?.slug}>
+                        <a href={post?.slug || ''}></a>
                         {post?.thumbnail?.gatsbyImageData && (
                             <GatsbyImage
                                 alt={post.title || ''}
@@ -49,10 +53,23 @@ const ContentWork: FC = () => {
                             />
                         )}
                         <div className="content">
+                            <ul>
+                                {post?.tags?.tags?.map((tag, index) => (
+                                    <>
+                                        <li key={tag}>{tag}</li>
+                                        {index <
+                                        (post.tags?.tags?.length
+                                            ? post.tags?.tags?.length - 1
+                                            : 0) ? (
+                                            <span />
+                                        ) : null}
+                                    </>
+                                ))}
+                            </ul>
                             <h2>{post?.title}</h2>
                             {post?.description &&
                                 renderRichText(post?.description as any, {})}
-                            <a href={post?.slug || ''}>{'Read more'}</a>
+                            <span>{'Read more'}</span>
                         </div>
                     </article>
                 ))}
