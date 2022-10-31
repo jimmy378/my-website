@@ -27,25 +27,26 @@ const IndexPage = () => {
     );
 };
 
-export const Head: HeadFC<Queries.IndexPageQuery> = ({ data }) => (
-    <>
-        <title>{data.site?.siteMetadata?.title || ''}</title>
-        <meta
-            content={data.site?.siteMetadata?.description || ''}
-            name="description"
-        ></meta>
-    </>
-);
+export const Head: HeadFC<Queries.IndexPageQuery> = ({ data }) => {
+    if (!data.contentfulHomePage) {
+        return <></>;
+    }
+    const { seoDescription, seoTitle } = data.contentfulHomePage;
+    return (
+        <>
+            <title>{seoTitle || ''}</title>
+            <meta content={seoDescription || ''} name="description"></meta>
+        </>
+    );
+};
 
 export default IndexPage;
 
 export const query = graphql`
     query IndexPage {
-        site {
-            siteMetadata {
-                description
-                title
-            }
+        contentfulHomePage {
+            seoTitle
+            seoDescription
         }
     }
 `;

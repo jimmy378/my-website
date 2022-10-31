@@ -6,7 +6,6 @@ export const createPages = async ({ actions, graphql }: any) => {
             allContentfulPost {
                 edges {
                     node {
-                        title
                         slug
                     }
                 }
