@@ -9,7 +9,11 @@ import BurgerIcon from '../../icons/burger.svg';
 import CloseIcon from '../../icons/cross.svg';
 import Link from '../Link';
 
-const Header: FC = () => {
+type Props = {
+    isHomePage?: boolean;
+};
+
+const Header: FC<Props> = ({ isHomePage = true }) => {
     const data: Queries.HeaderQuery = useStaticQuery(graphql`
         query Header {
             file(name: { eq: "icon_black" }) {
@@ -63,16 +67,32 @@ const Header: FC = () => {
     const dragControls = useDragControls();
 
     const anchors = [
-        { anchor: landingAnchor || '', linkName: landingSection },
         { anchor: workAnchor || '', linkName: workSection },
         { anchor: skillsAnchor || '', linkName: skillsSection },
         { anchor: contactAnchor || '', linkName: contactSection },
     ];
 
+    if (isHomePage) {
+        anchors.unshift({
+            anchor: landingAnchor || '',
+            linkName: landingSection,
+        });
+    }
+
     useEffect(() => {
         history.scrollRestoration = 'manual';
         if (!location.hash) {
             const section = document.querySelector(`.${landingAnchor}`);
+            if (section) {
+                scrollIntoView(
+                    section,
+                    location.hash.substring(1) || landingAnchor || ''
+                );
+            }
+        } else {
+            const section = document.querySelector(
+                `.${location.hash.substring(1) || landingAnchor || ''}`
+            );
             if (section) {
                 scrollIntoView(
                     section,
@@ -124,31 +144,38 @@ const Header: FC = () => {
         };
         addEventListener('hashchange', onHashChange);
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting) {
-                    setSection(entries[0].target.className);
+        let observer: IntersectionObserver;
+        if (isHomePage) {
+            observer = new IntersectionObserver(
+                (entries) => {
+                    if (entries[0].isIntersecting) {
+                        setSection(entries[0].target.className);
+                    }
+                },
+                {
+                    rootMargin: '-50% 0% -50% 0%',
                 }
-            },
-            {
-                rootMargin: '-50% 0% -50% 0%',
-            }
-        );
-        anchors.forEach((anchor) => {
-            observer.observe(
-                document.querySelector(`section.${anchor.anchor}`) as any
             );
-        });
+            anchors.forEach((anchor) => {
+                observer.observe(
+                    document.querySelector(`section.${anchor.anchor}`) as any
+                );
+            });
+        }
 
         return () => {
             removeEventListener('scroll', onScroll);
             removeEventListener('hashchange', onHashChange);
-            anchors.forEach((anchor) => {
-                observer.unobserve(
-                    document.querySelector(`section.${anchor.anchor}`) as any
-                );
-            });
             removeEventListener('mousedown', onOutsideClick);
+            if (isHomePage && observer) {
+                anchors.forEach((anchor) => {
+                    observer.unobserve(
+                        document.querySelector(
+                            `section.${anchor.anchor}`
+                        ) as any
+                    );
+                });
+            }
         };
     }, []);
 
@@ -195,7 +222,11 @@ const Header: FC = () => {
                 className={`header-link ${getAnchorClass(
                     anchor.anchor
                 )}`.trim()}
-                href={`#${anchor.anchor || ''}`}
+                href={
+                    isHomePage
+                        ? `#${anchor.anchor || ''}`
+                        : `${window.location.origin}#${anchor.anchor}`
+                }
                 key={anchor.linkName}
                 onClick={() => anchorClicked(anchor.anchor || '')}
                 tabIndex={scrollPos > 0 ? 0 : -1}
@@ -219,7 +250,7 @@ const Header: FC = () => {
 
     return (
         <>
-            <header ref={headerRef}>
+            <header className={isHomePage ? 'home-page' : ''} ref={headerRef}>
                 <div>
                     <img src={data.file?.publicURL || ''} />
                     <nav>{renderLinks()}</nav>

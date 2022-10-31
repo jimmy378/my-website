@@ -1,5 +1,5 @@
 @use "sass:math";
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 .header-link {
     appearance: none;
@@ -33,7 +33,6 @@
 header {
     width: 100%;
     position: fixed;
-    top: $unit-base * -6;
     height: $unit-base * 6;
     box-sizing: border-box;
     display: flex;
@@ -44,6 +43,9 @@ header {
     box-shadow: none;
     background: $color-white;
     transition: top 0.5s ease, box-shadow 0.5s ease;
+    &.home-page {
+        top: $unit-base * -6;
+    }
     img {
         height: $unit-base * 2;
     }
@@ -81,7 +83,8 @@ header {
             box-shadow: none;
         }
         > div {
-            img, a {
+            img,
+            a {
                 display: none;
             }
         }
@@ -135,11 +138,13 @@ header {
         }
     }
     &.visible {
-        .slider, .closer {
+        .slider,
+        .closer {
             display: block;
         }
     }
-    .slider, .closer {
+    .slider,
+    .closer {
         display: none;
         position: absolute;
         top: 0;
