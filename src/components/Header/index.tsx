@@ -252,7 +252,9 @@ const Header: FC<Props> = ({ isHomePage = true }) => {
         <>
             <header className={isHomePage ? 'home-page' : ''} ref={headerRef}>
                 <div>
-                    <img src={data.file?.publicURL || ''} />
+                    <a href="/">
+                        <img src={data.file?.publicURL || ''} />
+                    </a>
                     <nav>{renderLinks()}</nav>
                 </div>
                 <a

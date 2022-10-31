@@ -48,6 +48,7 @@ header {
     }
     img {
         height: $unit-base * 2;
+        cursor: pointer;
     }
     > div {
         display: flex;
