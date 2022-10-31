@@ -3,7 +3,43 @@
 
 section.content {
     padding-top: $unit-base * 8;
+    max-width: $unit-base * 58;
     &:first-of-type {
         height: auto;
+    }
+    p {
+        margin: 0;
+    }
+    > * {
+        &:not(:last-child) {
+            margin-bottom: $unit-base * 3;
+        }
+    }
+    > ul {
+        appearance: none;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        color: $color-grey;
+        font-size: $type-small;
+        line-height: $type-small-lh;
+        gap: math.div($unit-base, 2);
+        > span {
+            width: $unit-line * 3;
+            height: $unit-line * 3;
+            border-radius: $unit-line * 3;
+            background: $color-grey;
+        }
+        &:not(:last-child) {
+            margin-bottom: math.div($unit-base, 2);
+        }
+    }
+
+    @include breakpoint-mobile {
+        min-height: 0;
+        padding-top: $unit-base * 4;
     }
 }

@@ -6,7 +6,7 @@ import './Post.scss';
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { graphql, HeadFC, PageProps } from 'gatsby';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import Header from '../components/Header';
 import PostImage from '../components/PostImage';
@@ -45,6 +45,19 @@ const PostPage = ({ data }: PageProps<Queries.PostPageQuery>) => {
         <main>
             <Header isHomePage={false} />
             <section className="content">
+                <ul>
+                    {tags?.tags?.map((tag, index) => (
+                        <Fragment key={tag}>
+                            <li>{tag}</li>
+                            {index <
+                            (tags?.tags?.length
+                                ? tags?.tags?.length - 1
+                                : 0) ? (
+                                <span />
+                            ) : null}
+                        </Fragment>
+                    ))}
+                </ul>
                 <h1>{title || ''}</h1>
                 <>
                     {content && (
