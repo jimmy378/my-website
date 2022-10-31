@@ -9,6 +9,7 @@ import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import React, { Fragment } from 'react';
 
 import Header from '../components/Header';
+import PostIframe from '../components/PostIframe';
 import PostImage from '../components/PostImage';
 import PostVideo from '../components/PostVideo';
 
@@ -19,15 +20,16 @@ const richTextOptions = {
             return <PostImage imageData={gatsbyImageData} />;
         },
         [BLOCKS.EMBEDDED_ENTRY]: (node: any) => {
-            const { __typename, videoLink } = node.data.target;
+            const { __typename, link, videoLink } = node.data.target;
             switch (__typename) {
                 case 'ContentfulComponentVideo':
                     return <PostVideo link={videoLink} />;
+                case 'ContentfulComponentIframe':
+                    return <PostIframe link={link} />;
 
                 default:
                     return <></>;
             }
-            return <div>hello</div>;
         },
     },
 };
@@ -98,6 +100,11 @@ export const query = graphql`
                         __typename
                         id
                         videoLink
+                    }
+                    ... on ContentfulComponentIframe {
+                        contentful_id
+                        __typename
+                        link
                     }
                     ... on ContentfulAsset {
                         contentful_id

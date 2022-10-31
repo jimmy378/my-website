@@ -1,0 +1,21 @@
+@use "sass:math";
+@import "../../styles/variables.scss";
+
+.post-iframe {
+    padding-top: 100%;
+    box-sizing: border-box;
+    margin: 0px 0px 32px;
+    min-width: 0px;
+    position: relative;
+    width: 100%;
+    iframe {
+        box-sizing: border-box;
+        margin: 0px;
+        min-width: 0px;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+    }
+}
