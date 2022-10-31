@@ -1,5 +1,6 @@
 import './styles.scss';
 
+import { motion } from 'framer-motion';
 import { graphql, useStaticQuery } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
@@ -113,7 +114,15 @@ const ContentWork: FC = () => {
                 </div>
                 {filteredPosts?.slice(0, count).map((post, index) => (
                     <Fragment key={post?.slug}>
-                        <article>
+                        <motion.article
+                            initial={{ opacity: 0, y: 100 }}
+                            transition={{ duration: 1, ease: 'easeInOut' }}
+                            viewport={{
+                                margin: '0px 0px -200px 0px',
+                                once: true,
+                            }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                        >
                             <a href={post?.slug || ''}></a>
                             {post?.thumbnail?.gatsbyImageData && (
                                 <GatsbyImage
@@ -144,7 +153,7 @@ const ContentWork: FC = () => {
                                     )}
                                 <span>{'Read more'}</span>
                             </div>
-                        </article>
+                        </motion.article>
                         {index <
                         (filteredPosts.slice(0, count || 3) || []).length -
                             1 ? (

@@ -1,5 +1,6 @@
 import './styles.scss';
 
+import { motion } from 'framer-motion';
 import { graphql, useStaticQuery } from 'gatsby';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import lottie from 'lottie-web';
@@ -94,7 +95,12 @@ const ContentLanding: FC = () => {
             <a className={landingAnchor || ''} />
             <section className={landingAnchor || ''}>
                 {!displayMobileAnimation && (
-                    <div className="content">
+                    <motion.div
+                        animate={{ opacity: 1 }}
+                        className="content"
+                        initial={{ opacity: 0 }}
+                        transition={{ duration: 1 }}
+                    >
                         {landingContent &&
                             renderRichText(landingContent as any, {})}
                         <div className="links">
@@ -118,7 +124,7 @@ const ContentLanding: FC = () => {
                                 <WaveIcon />
                             </a>
                         </div>
-                    </div>
+                    </motion.div>
                 )}
                 <div
                     className={`animation ${
