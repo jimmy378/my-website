@@ -161,6 +161,36 @@ section.work {
             opacity: 1;
         }
     }
+    > button {
+        background: $color-white;
+        color: $color-base;
+        outline: none;
+        border: $unit-line solid $color-base;
+        padding: 0 $unit-base;
+        height: $unit-base * 3;
+        cursor: pointer;
+        user-select: none;
+        margin-left: $unit-base * 19.5;
+        > svg {
+            width: $unit-base;
+            margin-left: math.div($unit-base, 2);
+            path {
+                stroke: $color-base;
+            }
+        }
+
+        &:hover {
+            border-color: $color-primary;
+            color: $color-primary;
+            > svg path {
+                stroke: $color-primary;
+            }
+        }
+
+        &:active {
+            background: rgba($color-primary-dark, 0.05);
+        }
+    }
 
     @include breakpoint-desktop {
         .filters > div {
@@ -176,9 +206,18 @@ section.work {
             margin-bottom: $unit-base * 3;
             border-bottom: $unit-line solid $color-light-grey;
         }
+        .divider {
+            margin-bottom: $unit-base * 2;
+        }
         article {
             flex-direction: row-reverse;
             box-shadow: none;
+            &:not(:last-child) {
+                margin-bottom: $unit-base * 2;
+            }
+            .divider {
+                margin-bottom: $unit-base * 2;
+            }
             .image {
                 width: $unit-base * 6;
                 min-width: $unit-base * 6;
@@ -208,6 +247,10 @@ section.work {
             &:active {
                 box-shadow: none;
             }
+        }
+        > button {
+            margin-left: 0;
+            width: fit-content;
         }
     }
 }

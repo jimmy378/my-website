@@ -39,6 +39,7 @@ const ContentWork: FC = () => {
 
     const { posts, workAnchor, workCount, workSection } =
         data.contentfulHomePage;
+    const [count, setCount] = useState(workCount || 3);
     const [tags, setTags] = useState<string[]>([]);
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [filteredPosts, setFilteredPosts] = useState(posts);
@@ -57,17 +58,17 @@ const ContentWork: FC = () => {
     }, []);
 
     useEffect(() => {
-        if (selectedTags.length === 0) {
-            setFilteredPosts(posts);
-        } else {
-            setFilteredPosts(
+        let newPosts = posts;
+        if (selectedTags.length > 0) {
+            newPosts =
                 posts?.filter((post) =>
                     post?.tags?.tags?.some((tag) =>
                         selectedTags.includes(tag || '')
                     )
-                ) || []
-            );
+                ) || [];
         }
+        setFilteredPosts(newPosts);
+        console.log(newPosts?.length, count);
     }, [selectedTags]);
 
     const updateSelectedTags = (selected: string) => {
@@ -110,7 +111,7 @@ const ContentWork: FC = () => {
                         title="Filters"
                     />
                 </div>
-                {filteredPosts?.map((post, index) => (
+                {filteredPosts?.slice(0, count).map((post, index) => (
                     <Fragment key={post?.slug}>
                         <article>
                             <a href={post?.slug || ''}></a>
@@ -144,11 +145,18 @@ const ContentWork: FC = () => {
                                 <span>{'Read more'}</span>
                             </div>
                         </article>
-                        {index < (posts || []).length - 1 ? (
+                        {index <
+                        (filteredPosts.slice(0, count || 3) || []).length -
+                            1 ? (
                             <div className="divider" />
                         ) : null}
                     </Fragment>
                 ))}
+                {(filteredPosts?.length || 0) > count && (
+                    <button onClick={() => setCount(count + (workCount || 3))}>
+                        {'Show more'}
+                    </button>
+                )}
             </section>
         </>
     );
