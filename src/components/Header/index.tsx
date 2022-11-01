@@ -197,9 +197,6 @@ const Header: FC<Props> = ({ isHomePage = true }) => {
 
     const setSection = (anchor: string) => {
         setfocusedAnchor(anchor);
-        if (location.hash !== `#${anchor}` && isHomePage) {
-            history.pushState({}, '', `#${anchor}`);
-        }
     };
 
     const anchorClicked = (anchor: string) => {
