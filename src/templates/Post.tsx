@@ -3,7 +3,7 @@ import '@fontsource/montserrat/400.css';
 import '@fontsource/montserrat/700.css';
 import './Post.scss';
 
-import { BLOCKS, MARKS } from '@contentful/rich-text-types';
+import { BLOCKS } from '@contentful/rich-text-types';
 import { graphql, HeadFC, PageProps } from 'gatsby';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import React, { Fragment } from 'react';

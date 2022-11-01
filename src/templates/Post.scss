@@ -4,6 +4,7 @@
 section.content {
     padding-top: $unit-base * 8;
     max-width: $unit-base * 58;
+    margin-bottom: $unit-base * 12;
     &:first-of-type {
         height: auto;
     }
@@ -12,8 +13,11 @@ section.content {
     }
     > * {
         &:not(:last-child) {
-            margin-bottom: $unit-base * 3;
+            margin-bottom: $unit-base * 2;
         }
+    }
+    .post-image:not(:last-child) {
+        margin-bottom: $unit-base * 3;
     }
     > ul {
         appearance: none;
