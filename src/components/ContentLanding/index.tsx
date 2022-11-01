@@ -3,13 +3,13 @@ import './styles.scss';
 import { motion } from 'framer-motion';
 import { graphql, useStaticQuery } from 'gatsby';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
-import lottie from 'lottie-web';
 import * as React from 'react';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import CaretDownIcon from '../../icons/caret_down.svg';
 import CrossIcon from '../../icons/cross.svg';
 import WaveIcon from '../../icons/wave.svg';
+import Animation from '../Animation';
 import Link from '../Link';
 import Spinner from '../Spinner';
 
@@ -19,6 +19,9 @@ const ContentLanding: FC = () => {
             contentfulHomePage {
                 landingAnchor
                 landingSection
+                landingHeading {
+                    url
+                }
                 landingAnimation {
                     url
                 }
@@ -42,7 +45,6 @@ const ContentLanding: FC = () => {
         return null;
     }
 
-    const playerRef = useRef<HTMLDivElement>(null);
     const [loading, setLoading] = useState(true);
     const [displayMobileAnimation, setDisplayMobileAnimation] = useState(false);
     const [continueVisible, setContinueVisible] = useState(true);
@@ -50,43 +52,21 @@ const ContentLanding: FC = () => {
         landingAnchor,
         landingAnimation,
         landingContent,
+        landingHeading,
         links,
         workAnchor,
     } = data.contentfulHomePage;
 
     useEffect(() => {
-        const anim = lottie.loadAnimation({
-            autoplay: true,
-            container: playerRef.current as any,
-            loop: true,
-            path: landingAnimation?.url || '',
-            renderer: 'canvas',
-        });
-        const onDomLoaded = () => {
-            setLoading(false);
-        };
-        anim.addEventListener('DOMLoaded', () => onDomLoaded());
-
         const handleClick = () => {
             setDisplayMobileAnimation(false);
         };
         addEventListener('mousedown', handleClick);
-
         const onScroll = () => setContinueVisible(scrollY === 0);
         addEventListener('scroll', onScroll);
-
-        const handleResize = () => {
-            (lottie as any).resize();
-        };
-        addEventListener('resize', handleResize);
-        addEventListener('orientationchange', handleResize);
         return () => {
-            anim.removeEventListener('DOMLoaded', () => onDomLoaded());
-            anim.destroy();
             removeEventListener('mousedown', handleClick);
             removeEventListener('scroll', onScroll);
-            removeEventListener('resize', handleResize);
-            removeEventListener('orientationchange', handleResize);
         };
     }, []);
 
@@ -101,6 +81,11 @@ const ContentLanding: FC = () => {
                         initial={{ opacity: 0 }}
                         transition={{ duration: 1 }}
                     >
+                        <Animation
+                            animationUrl={landingHeading?.url || ''}
+                            customClass="animation-header home"
+                            renderer="svg"
+                        />
                         {landingContent &&
                             renderRichText(landingContent as any, {})}
                         <div className="links">
@@ -132,7 +117,11 @@ const ContentLanding: FC = () => {
                     }`.trim()}
                 >
                     {loading && <Spinner />}
-                    <div className="player" ref={playerRef} />
+                    <Animation
+                        animationUrl={landingAnimation?.url || ''}
+                        loop={true}
+                        onLoaded={() => setLoading(false)}
+                    />
                 </div>
                 {displayMobileAnimation && (
                     <a aria-label={'Show animation'} className="link close">

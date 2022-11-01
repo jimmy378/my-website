@@ -1,12 +1,12 @@
 @use "sass:math";
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 section.contact {
     overflow: hidden;
     display: flex;
     .content {
         height: $unit-base * 40;
-        h1 {
+        .animation-header {
             margin-bottom: $unit-base * 3;
         }
     }

@@ -8,6 +8,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { FC } from 'react';
 
 import CrossIcon from '../../icons/cross.svg';
+import Animation from '../Animation';
 import Dropdown from '../Dropdown';
 
 const ContentWork: FC = () => {
@@ -17,6 +18,9 @@ const ContentWork: FC = () => {
                 workSection
                 workAnchor
                 workCount
+                workHeading {
+                    url
+                }
                 posts {
                     slug
                     title
@@ -38,7 +42,7 @@ const ContentWork: FC = () => {
         return null;
     }
 
-    const { posts, workAnchor, workCount, workSection } =
+    const { posts, workAnchor, workCount, workHeading } =
         data.contentfulHomePage;
     const [count, setCount] = useState(workCount || 3);
     const [tags, setTags] = useState<string[]>([]);
@@ -69,7 +73,6 @@ const ContentWork: FC = () => {
                 ) || [];
         }
         setFilteredPosts(newPosts);
-        console.log(newPosts?.length, count);
     }, [selectedTags]);
 
     const updateSelectedTags = (selected: string) => {
@@ -85,7 +88,12 @@ const ContentWork: FC = () => {
             <a className={workAnchor || ''} />
             <section className={workAnchor || ''}>
                 <div className="filters">
-                    <h1>{workSection || ''}</h1>
+                    <Animation
+                        animationUrl={workHeading?.url || ''}
+                        customClass="animation-header"
+                        renderer="svg"
+                        triggerOnEnter={true}
+                    />
                     <div className="options">
                         {selectedTags.map((tag) => (
                             <button
@@ -116,9 +124,8 @@ const ContentWork: FC = () => {
                     <Fragment key={post?.slug}>
                         <motion.article
                             initial={{ opacity: 0, y: 100 }}
-                            transition={{ duration: 1, ease: 'easeInOut' }}
+                            transition={{ duration: 1, type: 'spring' }}
                             viewport={{
-                                margin: '0px 0px -200px 0px',
                                 once: true,
                             }}
                             whileInView={{ opacity: 1, y: 0 }}

@@ -1,0 +1,11 @@
+@use "sass:math";
+@import "../../styles/variables.scss";
+
+.player {
+  &.animation-header {
+    width: 400px;
+    svg {
+      width: 300px !important;
+    }
+  }
+}

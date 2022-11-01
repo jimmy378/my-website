@@ -193,6 +193,9 @@ section.work {
     }
 
     @include breakpoint-desktop {
+        .filters .animation-header {
+            display: block;
+        }
         .filters > div {
             display: none;
         }

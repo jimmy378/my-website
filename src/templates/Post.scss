@@ -38,6 +38,11 @@ section.content {
         }
     }
 
+    hr {
+        border-color: rgba($color-light-grey, 0.3);
+        border-width: $unit-line;
+    }
+
     @include breakpoint-mobile {
         min-height: 0;
         padding-top: $unit-base * 4;

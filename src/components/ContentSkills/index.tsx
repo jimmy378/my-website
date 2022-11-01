@@ -7,12 +7,17 @@ import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import * as React from 'react';
 import { FC } from 'react';
 
+import Animation from '../Animation';
+
 const ContentSkills: FC = () => {
     const data: Queries.SkillsQuery = useStaticQuery(graphql`
         query Skills {
             contentfulHomePage {
                 skillsSection
                 skillsAnchor
+                skillsHeading {
+                    url
+                }
                 skills {
                     image {
                         gatsbyImageData
@@ -30,20 +35,24 @@ const ContentSkills: FC = () => {
         return null;
     }
 
-    const { skills, skillsAnchor, skillsSection } = data.contentfulHomePage;
+    const { skills, skillsAnchor, skillsHeading } = data.contentfulHomePage;
 
     return (
         <>
             <a className={skillsAnchor || ''} />
             <section className={skillsAnchor || ''}>
-                <h1>{skillsSection || ''}</h1>
+                <Animation
+                    animationUrl={skillsHeading?.url || ''}
+                    customClass="animation-header"
+                    renderer="svg"
+                    triggerOnEnter={true}
+                />
                 {skills?.map((skill, index) => (
                     <motion.article
                         initial={{ opacity: 0, y: 100 }}
                         key={`skill-${index}`}
                         transition={{ duration: 1, ease: 'easeInOut' }}
                         viewport={{
-                            margin: '0px 0px -200px 0px',
                             once: true,
                         }}
                         whileInView={{ opacity: 1, y: 0 }}

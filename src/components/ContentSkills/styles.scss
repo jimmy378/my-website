@@ -1,8 +1,8 @@
 @use "sass:math";
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 section.skills {
-    h1 {
+    .animation-header {
         margin-bottom: $unit-base * 2;
     }
     article {

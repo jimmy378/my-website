@@ -244,7 +244,6 @@ const Header: FC<Props> = ({ isHomePage = true }) => {
     };
 
     const startDrag = (event: React.PointerEvent<HTMLDivElement>) => {
-        console.log(event);
         dragControls.start(event, { snapToCursor: false });
     };
 

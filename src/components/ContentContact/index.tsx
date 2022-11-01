@@ -5,6 +5,7 @@ import lottie from 'lottie-web';
 import * as React from 'react';
 import { FC, useEffect, useRef, useState } from 'react';
 
+import Animation from '../Animation';
 import Spinner from '../Spinner';
 
 const ContentContact: FC = () => {
@@ -13,6 +14,9 @@ const ContentContact: FC = () => {
             contentfulHomePage {
                 contactSection
                 contactAnchor
+                contactHeading {
+                    url
+                }
                 contactAnimation {
                     url
                 }
@@ -24,7 +28,7 @@ const ContentContact: FC = () => {
         return null;
     }
 
-    const { contactAnchor, contactAnimation, contactSection } =
+    const { contactAnchor, contactAnimation, contactHeading, contactSection } =
         data.contentfulHomePage;
     const playerRef = useRef<HTMLDivElement>(null);
     const [loading, setLoading] = useState(true);
@@ -76,7 +80,12 @@ const ContentContact: FC = () => {
             <a className={contactAnchor || ''} />
             <section className={contactAnchor || ''}>
                 <div className="content">
-                    <h1>{contactSection || ''}</h1>
+                    <Animation
+                        animationUrl={contactHeading?.url || ''}
+                        customClass="animation-header"
+                        renderer="svg"
+                        triggerOnEnter={true}
+                    />
                     <form
                         action="#"
                         data-netlify="true"

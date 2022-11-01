@@ -2,4 +2,6 @@
 @import "../../styles/variables.scss";
 
 .post-image {
+    border: $unit-line solid $color-light-grey;
+    overflow: hidden;
 }
