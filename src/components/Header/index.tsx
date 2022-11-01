@@ -112,12 +112,6 @@ const Header: FC<Props> = ({ isHomePage = true }) => {
                 }
                 if (innerHeight + scrollY >= document.body.offsetHeight - 1) {
                     setSection(contactAnchor || '');
-                    const firstInput = document.querySelector('input');
-                    if (firstInput && matchMedia('max-width: 640px')) {
-                        setTimeout(() => {
-                            firstInput.focus();
-                        }, 0);
-                    }
                 }
             }
         };

@@ -1,6 +1,6 @@
 @use "sass:math";
-@import './reset.scss';
-@import './variables.scss';
+@import "./reset.scss";
+@import "./variables.scss";
 
 *:focus-visible {
     box-shadow: $shadow-focus !important;
@@ -10,11 +10,11 @@
 
 body {
     color: $color-base;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-size: $type-base;
     line-height: $type-base-lh;
     scroll-behavior: smooth;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-tap-highlight-color: transparent;
     &.drawer-open {
         overflow: hidden;
@@ -53,6 +53,7 @@ main > section {
     padding: 0 $unit-base * 2;
     margin: 0 auto;
     max-width: $unit-desktop;
+    overflow: hidden;
     &:first-of-type {
         height: 100vh;
     }
@@ -83,7 +84,8 @@ main > section {
         transition: color 0.5s ease;
         user-select: none;
     }
-    input, textarea {
+    input,
+    textarea {
         border: none;
         outline: none;
         border-bottom: $unit-line solid rgba($color-base, 0.25);
@@ -106,7 +108,7 @@ main > section {
         &:focus {
             background: rgba($color-primary, 0.1);
             + label {
-                color: $color-primary
+                color: $color-primary;
             }
             ~ span {
                 transform: scaleX(1);

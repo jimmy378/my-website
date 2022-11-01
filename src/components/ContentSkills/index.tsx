@@ -6,6 +6,7 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import * as React from 'react';
 import { FC } from 'react';
+import { isMobile } from 'react-device-detect';
 
 import Animation from '../Animation';
 
@@ -49,7 +50,7 @@ const ContentSkills: FC = () => {
                 />
                 {skills?.map((skill, index) => (
                     <motion.article
-                        initial={{ opacity: 0, y: 100 }}
+                        initial={{ opacity: 0, y: isMobile ? 0 : 100 }}
                         key={`skill-${index}`}
                         transition={{ duration: 1, ease: 'easeInOut' }}
                         viewport={{

@@ -19,6 +19,8 @@ section.contact {
     }
     input[type="submit"] {
         align-self: end;
+        color: $color-base;
+        font-weight: normal;
     }
     .animation {
         overflow: hidden;

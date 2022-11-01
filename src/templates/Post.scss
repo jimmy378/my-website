@@ -45,6 +45,14 @@ section.content {
 
     @include breakpoint-mobile {
         min-height: 0;
-        padding-top: $unit-base * 4;
+        padding-top: $unit-base * 2;
+        > ul,
+        > h1 {
+            margin-right: $unit-base * 5;
+        }
+        > h1 {
+            font-size: 30px;
+            line-height: 36px;
+        }
     }
 }

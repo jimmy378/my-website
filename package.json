@@ -9,7 +9,7 @@
     ],
     "scripts": {
         "develop": "gatsby develop",
-        "start": "gatsby develop",
+        "start": "gatsby develop --host=0.0.0.0",
         "build": "gatsby build",
         "serve": "gatsby serve",
         "clean": "gatsby clean",
@@ -39,6 +39,7 @@
         "lottie-react": "^2.3.1",
         "lottie-web": "^5.9.6",
         "react": "^18.1.0",
+        "react-device-detect": "^2.2.2",
         "react-dom": "^18.1.0",
         "sass": "^1.54.9"
     },

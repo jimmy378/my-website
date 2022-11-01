@@ -6,6 +6,7 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import React, { Fragment, useEffect, useState } from 'react';
 import { FC } from 'react';
+import { isMobile } from 'react-device-detect';
 
 import CrossIcon from '../../icons/cross.svg';
 import Animation from '../Animation';
@@ -123,7 +124,7 @@ const ContentWork: FC = () => {
                 {filteredPosts?.slice(0, count).map((post, index) => (
                     <Fragment key={post?.slug}>
                         <motion.article
-                            initial={{ opacity: 0, y: 100 }}
+                            initial={{ opacity: 0, y: isMobile ? 0 : 100 }}
                             transition={{ duration: 1, type: 'spring' }}
                             viewport={{
                                 once: true,
