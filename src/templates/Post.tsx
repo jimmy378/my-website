@@ -2,6 +2,7 @@ import '../styles/index.scss';
 import '@fontsource/montserrat/400.css';
 import '@fontsource/montserrat/700.css';
 import './Post.scss';
+import 'react-medium-image-zoom/dist/styles.css';
 
 import { BLOCKS } from '@contentful/rich-text-types';
 import { graphql, HeadFC, PageProps } from 'gatsby';
@@ -9,6 +10,7 @@ import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import React, { Fragment } from 'react';
 
 import Header from '../components/Header';
+import PostGallery from '../components/PostGallery';
 import PostIframe from '../components/PostIframe';
 import PostImage from '../components/PostImage';
 import PostVideo from '../components/PostVideo';
@@ -20,12 +22,14 @@ const richTextOptions = {
             return <PostImage imageData={gatsbyImageData} />;
         },
         [BLOCKS.EMBEDDED_ENTRY]: (node: any) => {
-            const { __typename, link, videoLink } = node.data.target;
+            const { __typename, images, link, videoLink } = node.data.target;
             switch (__typename) {
                 case 'ContentfulComponentVideo':
                     return <PostVideo link={videoLink} />;
                 case 'ContentfulComponentIframe':
                     return <PostIframe link={link} />;
+                case 'ContentfulComponentGallery':
+                    return <PostGallery images={images} />;
 
                 default:
                     return <></>;
@@ -110,6 +114,13 @@ export const query = graphql`
                         contentful_id
                         __typename
                         gatsbyImageData(layout: FULL_WIDTH)
+                    }
+                    ... on ContentfulComponentGallery {
+                        contentful_id
+                        __typename
+                        images {
+                            gatsbyImageData(layout: FULL_WIDTH)
+                        }
                     }
                 }
             }

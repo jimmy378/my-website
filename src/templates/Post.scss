@@ -5,6 +5,7 @@ section.content {
     padding-top: $unit-base * 8;
     max-width: $unit-base * 58;
     margin-bottom: $unit-base * 12;
+    overflow: visible;
     &:first-of-type {
         height: auto;
     }

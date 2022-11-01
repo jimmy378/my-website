@@ -1,5 +1,4 @@
 import './styles.scss';
-import 'react-medium-image-zoom/dist/styles.css';
 
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import React, { FC } from 'react';
