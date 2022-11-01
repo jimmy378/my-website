@@ -41,6 +41,7 @@ section.content {
     hr {
         border-color: rgba($color-light-grey, 0.3);
         border-width: $unit-line;
+        width: 100%;
     }
 
     @include breakpoint-mobile {
