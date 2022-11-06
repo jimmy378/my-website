@@ -8,4 +8,13 @@
       width: 300px !important;
     }
   }
+
+  @include breakpoint-mobile {
+    &.animation-header {
+      width: 300px;
+      svg {
+        width: 200px !important;
+      }
+    }
+  }
 }

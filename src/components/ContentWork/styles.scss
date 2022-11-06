@@ -215,6 +215,9 @@ section.work {
         .divider {
             margin-bottom: $unit-base * 2;
         }
+        .filters {
+            margin-bottom: $unit-base;
+        }
         article {
             flex-direction: row-reverse;
             box-shadow: none;
