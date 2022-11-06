@@ -120,36 +120,37 @@ const ContentExperiments: FC = () => {
                         title="Filters"
                     />
                 </div>
-                {filteredExperiments
-                    ?.slice(0, count)
-                    .map((experiment, index) => (
-                        <Fragment key={experiment?.title}>
-                            <motion.article
-                                initial={{ opacity: 0, y: isMobile ? 0 : 100 }}
-                                transition={{ duration: 1, type: 'spring' }}
-                                viewport={{
-                                    once: true,
-                                }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                            >
-                                {experiment?.thumbnail?.gatsbyImageData && (
-                                    <GatsbyImage
-                                        alt={experiment.title || ''}
-                                        className="image"
-                                        image={
-                                            experiment.thumbnail.gatsbyImageData
-                                        }
-                                    />
-                                )}
-                            </motion.article>
-                            {index <
-                            (filteredExperiments.slice(0, count || 3) || [])
-                                .length -
-                                1 ? (
-                                <div className="divider" />
-                            ) : null}
-                        </Fragment>
-                    ))}
+                <div className="grid">
+                    {filteredExperiments
+                        ?.slice(0, count)
+                        .map((experiment, index) => (
+                            <Fragment key={experiment?.title}>
+                                <motion.article
+                                    initial={{
+                                        opacity: 0,
+                                        y: isMobile ? 0 : 100,
+                                    }}
+                                    transition={{ duration: 1, type: 'spring' }}
+                                    viewport={{
+                                        once: true,
+                                    }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                >
+                                    {experiment?.thumbnail?.gatsbyImageData && (
+                                        <GatsbyImage
+                                            alt={experiment.title || ''}
+                                            className="image"
+                                            image={
+                                                experiment.thumbnail
+                                                    .gatsbyImageData
+                                            }
+                                        />
+                                    )}
+                                    <p>{experiment?.title}</p>
+                                </motion.article>
+                            </Fragment>
+                        ))}
+                </div>
                 {(filteredExperiments?.length || 0) > count && (
                     <button
                         onClick={() =>

@@ -139,8 +139,6 @@ section.work {
             }
             &::after {
                 width: $unit-base * 16.5;
-                min-width: $unit-base * 16.5;
-                opacity: 0.25;
             }
         }
 
@@ -150,6 +148,18 @@ section.work {
         }
 
         &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            height: 100%;
+            width: 0;
+            background: $color-primary;
+            opacity: 0.25;
+            transition: all 0.3s ease;
+        }
+
+        &::before {
+            z-index: 10;
             content: "";
             position: absolute;
             left: 0;

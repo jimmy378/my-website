@@ -58,113 +58,72 @@ section.experiments {
             flex-shrink: 0;
         }
     }
+    .grid {
+        display: grid;
+        gap: $unit-base * 2;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        margin-bottom: $unit-base * 3;
+    }
     article {
         position: relative;
         display: flex;
-        align-items: center;
-        gap: $unit-base * 3;
-        box-shadow: $shadow-card;
-        transition: all 0.15s ease;
+        flex-direction: column;
+        gap: math.div($unit-base, 2);
         box-sizing: border-box;
+        transition: all 0.15s ease;
         user-select: none;
-        min-height: $unit-base * 16.5;
+        width: 100%;
         cursor: pointer;
-        &:not(:last-child) {
-            margin-bottom: $unit-base * 3;
-        }
-        > a {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        h2 {
-            display: inline-block;
-            margin: 0;
-            margin-bottom: $unit-base;
-            transition: all 0.15s ease;
+        .image {
             position: relative;
-            &::before {
+            transition: all 0.15s ease;
+            width: 100%;
+            align-self: stretch;
+            object-fit: cover;
+            background: $color-light-grey;
+            box-shadow: $shadow-card;
+            &::after {
                 content: "";
                 position: absolute;
-                bottom: math.div($unit-base, -4);
+                top: 0;
+                left: 0;
+                height: 100%;
                 width: 0;
-                height: $unit-line;
-                border-bottom: $unit-line solid $color-primary;
-                transition: width 0.25s ease;
+                background: $color-primary;
+                transition: all 0.3s ease;
+                opacity: 0.25;
+            }
+            &::before {
+                z-index: 10;
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: math.div($unit-base, 2);
+                min-width: math.div($unit-base, 2);
+                background: $color-primary;
+                transition: all 0.3s ease;
+                opacity: 1;
             }
         }
         p {
             margin: 0;
-            margin-bottom: $unit-base;
-        }
-        .content {
-            padding: $unit-base * 2 0;
-            > span {
-                color: $color-primary-dark;
-                text-decoration: underline;
-            }
-            > ul {
-                appearance: none;
-                list-style: none;
-                margin: 0;
-                padding: 0;
-                display: flex;
-                flex-wrap: wrap;
-                align-items: center;
-                color: $color-grey;
-                font-size: $type-small;
-                line-height: $type-small-lh;
-                gap: math.div($unit-base, 2);
-                > span {
-                    width: $unit-line * 3;
-                    height: $unit-line * 3;
-                    border-radius: $unit-line * 3;
-                    background: $color-grey;
-                }
-                margin-bottom: math.div($unit-base, 2);
-            }
-        }
-        .image {
-            width: $unit-base * 16.5;
-            min-width: $unit-base * 16.5;
-            align-self: stretch;
-            object-fit: cover;
-            background: $color-light-grey;
+            font-size: $type-small;
+            line-height: $type-small-lh;
         }
 
-        &:hover {
+        &:hover .image {
             box-shadow: $shadow-hover;
-            transform: scale(1.005);
-            h2 {
-                color: $color-primary;
-                &::before {
-                    width: 100%;
-                }
-            }
+            transform: scale(1.025);
             &::after {
-                width: $unit-base * 16.5;
-                min-width: $unit-base * 16.5;
-                opacity: 0.25;
+                width: 100%;
             }
         }
 
-        &:active {
+        &:active .image {
             box-shadow: $shadow-active;
             transform: scale(1);
-        }
-
-        &::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            height: 100%;
-            width: math.div($unit-base, 2);
-            min-width: math.div($unit-base, 2);
-            background: $color-primary;
-            transition: all 0.3s ease;
-            opacity: 1;
         }
     }
     > button {
@@ -176,7 +135,6 @@ section.experiments {
         height: $unit-base * 3;
         cursor: pointer;
         user-select: none;
-        margin-left: $unit-base * 19.5;
         > svg {
             width: $unit-base;
             margin-left: math.div($unit-base, 2);
@@ -208,9 +166,6 @@ section.experiments {
         .filters > .dropdown {
             display: none;
         }
-        article .content > ul {
-            display: none;
-        }
     }
 
     @include breakpoint-mobile {
@@ -226,45 +181,6 @@ section.experiments {
         }
         .divider {
             margin-bottom: $unit-base * 2;
-        }
-        article {
-            flex-direction: row-reverse;
-            box-shadow: none;
-            &:not(:last-child) {
-                margin-bottom: $unit-base * 2;
-            }
-            .divider {
-                margin-bottom: $unit-base * 2;
-            }
-            .image {
-                width: $unit-base * 6;
-                min-width: $unit-base * 6;
-                height: $unit-base * 6;
-                min-height: $unit-base * 6;
-                align-self: center;
-            }
-            &::after {
-                display: none;
-            }
-            &:hover {
-                box-shadow: none;
-                transform: scale(1);
-                h2 {
-                    color: $color-primary;
-                    &::before {
-                        width: 100%;
-                    }
-                }
-                &::after {
-                    width: $unit-base * 16.5;
-                    min-width: $unit-base * 16.5;
-                    opacity: 0.25;
-                }
-            }
-
-            &:active {
-                box-shadow: none;
-            }
         }
         > button {
             margin-left: 0;
