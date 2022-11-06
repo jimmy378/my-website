@@ -47,4 +47,19 @@
         border-radius: $unit-base $unit-base 0 0;
         animation: slide-on 0.25s ease;
     }
+
+    @include breakpoint-mobile {
+        > svg {
+            width: $unit-base * 1.5;
+            height: $unit-base * 1.5;
+            transform: translate(-3px, 3px);
+            path {
+                stroke: $color-white;
+                stroke-width: $unit-line * 2;
+            }
+        }
+        .modal-content {
+            margin-top: $unit-base * 4;
+        }
+    }
 }
