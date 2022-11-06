@@ -19,7 +19,6 @@
     z-index: 100;
     background: rgba($color-base, 0.75);
     transition: all 0.25s ease;
-    cursor: zoom-out;
     &:empty {
         background: rgba($color-base, 0);
         pointer-events: none;
@@ -41,13 +40,13 @@
         top: 0;
         left: 0;
         width: 100%;
-        height: $unit-base * 4;
-        background: transparent;
+        height: 100%;
+        cursor: zoom-out;
     }
     .frame {
+        position: relative;
         cursor: default;
         box-sizing: border-box;
-        margin-top: $unit-base * 3;
         padding: $unit-base * 3 $unit-base * 2;
         width: 100%;
         height: 100%;
@@ -56,6 +55,8 @@
         animation: slide-on 0.25s ease;
         overflow-y: auto;
         padding-bottom: $unit-base * 6;
+        max-width: 1000px;
+        margin: $unit-base * 3 auto 0;
     }
     .content {
         max-width: $unit-base * 58;

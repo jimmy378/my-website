@@ -75,7 +75,9 @@ export const query = graphql`
                     ... on ContentfulComponentIframe {
                         contentful_id
                         __typename
-                        link
+                        link {
+                            link
+                        }
                     }
                     ... on ContentfulAsset {
                         contentful_id
