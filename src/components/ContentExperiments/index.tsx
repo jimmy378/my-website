@@ -8,6 +8,7 @@ import { FC } from 'react';
 import { isMobile } from 'react-device-detect';
 
 import CrossIcon from '../../icons/cross.svg';
+import Experiment from '../../templates/Experiment';
 import Animation from '../Animation';
 import Dropdown from '../Dropdown';
 import Modal from '../Modal';
@@ -27,6 +28,21 @@ const ContentExperiments: FC = () => {
                     thumbnail {
                         gatsbyImageData(layout: FULL_WIDTH)
                     }
+                    content {
+                        raw
+                        references {
+                            ... on ContentfulComponentIframe {
+                                contentful_id
+                                __typename
+                                link
+                            }
+                            ... on ContentfulAsset {
+                                contentful_id
+                                __typename
+                                gatsbyImageData(layout: FULL_WIDTH)
+                            }
+                        }
+                    }
                     tags {
                         tags
                     }
@@ -45,7 +61,7 @@ const ContentExperiments: FC = () => {
         experimentsCount,
         experimentsHeading,
     } = data.contentfulHomePage;
-    const [count, setCount] = useState(experimentsCount || 3);
+    const [count, setCount] = useState(isMobile ? 3 : experimentsCount || 3);
     const [tags, setTags] = useState<string[]>([]);
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [filteredExperiments, setFilteredExperiments] = useState(experiments);
@@ -89,7 +105,9 @@ const ContentExperiments: FC = () => {
     return (
         <>
             {selectedExperiment && (
-                <Modal onClose={() => setSelectedExperiment(null)}>Hello</Modal>
+                <Modal onClose={() => setSelectedExperiment(null)}>
+                    <Experiment experiment={selectedExperiment} />
+                </Modal>
             )}
             <a className={experimentsAnchor || ''} />
             <section className={experimentsAnchor || ''}>

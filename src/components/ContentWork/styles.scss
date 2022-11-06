@@ -247,6 +247,9 @@ section.work {
             &::after {
                 display: none;
             }
+            &::before {
+                display: none;
+            }
             &:hover {
                 box-shadow: none;
                 transform: scale(1);

@@ -34,9 +34,17 @@
             stroke: $color-white;
             stroke-width: $unit-line * 3;
         }
-        cursor: pointer;
+        pointer-events: none;
     }
-    .modal-content {
+    .close-area {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: $unit-base * 4;
+        background: transparent;
+    }
+    .frame {
         cursor: default;
         box-sizing: border-box;
         margin-top: $unit-base * 3;
@@ -46,6 +54,12 @@
         background: $color-white;
         border-radius: $unit-base $unit-base 0 0;
         animation: slide-on 0.25s ease;
+        overflow-y: auto;
+        padding-bottom: $unit-base * 6;
+    }
+    .content {
+        max-width: $unit-base * 58;
+        margin: 0 auto;
     }
 
     @include breakpoint-mobile {
@@ -58,7 +72,7 @@
                 stroke-width: $unit-line * 2;
             }
         }
-        .modal-content {
+        .frame {
             margin-top: $unit-base * 4;
         }
     }

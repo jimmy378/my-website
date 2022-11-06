@@ -13,18 +13,9 @@ type Props = {
 const Modal: FC<Props> = ({ children, onClose }) => {
     const ref = useRef<HTMLDivElement>(null);
     useEffect(() => {
-        const handleClick = (e: MouseEvent) => {
-            if (ref.current) {
-                if (!ref.current?.contains(e.target as any)) {
-                    onClose();
-                }
-            }
-        };
         document.body.classList.add('modal-open');
-        window.addEventListener('mousedown', handleClick);
         return () => {
             document.body.classList.remove('modal-open');
-            window.removeEventListener('mousedown', handleClick);
         };
     }, []);
 
@@ -37,9 +28,10 @@ const Modal: FC<Props> = ({ children, onClose }) => {
     }
     return createPortal(
         <>
+            <div className="close-area" onClick={() => onClose()} />
             <CloseIcon />
-            <div className="modal-content" ref={ref}>
-                {children}
+            <div className="frame" ref={ref}>
+                <div className="content">{children}</div>
             </div>
         </>,
         element
