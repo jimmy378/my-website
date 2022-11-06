@@ -6,6 +6,7 @@ import { graphql, HeadFC } from 'gatsby';
 import * as React from 'react';
 
 import ContentContact from '../components/ContentContact';
+import ContentExperiments from '../components/ContentExperiments';
 import ContentLanding from '../components/ContentLanding';
 import ContentSkills from '../components/ContentSkills';
 import ContentWork from '../components/ContentWork';
@@ -21,6 +22,7 @@ const IndexPage = () => {
             <Header />
             <ContentLanding />
             <ContentWork />
+            <ContentExperiments />
             <ContentSkills />
             <ContentContact />
         </main>

@@ -59,7 +59,7 @@ header {
     }
     nav {
         display: flex;
-        gap: $unit-base * 3;
+        gap: $unit-base * 2;
     }
     &.visible {
         top: 0;

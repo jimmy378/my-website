@@ -32,6 +32,8 @@ const Header: FC<Props> = ({ isHomePage = true }) => {
                 }
                 workSection
                 workAnchor
+                experimentsSection
+                experimentsAnchor
                 skillsSection
                 skillsAnchor
                 contactSection
@@ -47,6 +49,8 @@ const Header: FC<Props> = ({ isHomePage = true }) => {
     const {
         contactAnchor,
         contactSection,
+        experimentsAnchor,
+        experimentsSection,
         landingAnchor,
         landingSection,
         links,
@@ -68,6 +72,7 @@ const Header: FC<Props> = ({ isHomePage = true }) => {
 
     const anchors = [
         { anchor: workAnchor || '', linkName: workSection },
+        { anchor: experimentsAnchor || '', linkName: experimentsSection },
         { anchor: skillsAnchor || '', linkName: skillsSection },
         { anchor: contactAnchor || '', linkName: contactSection },
     ];
