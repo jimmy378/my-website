@@ -10,6 +10,7 @@ import { isMobile } from 'react-device-detect';
 import CrossIcon from '../../icons/cross.svg';
 import Animation from '../Animation';
 import Dropdown from '../Dropdown';
+import Modal from '../Modal';
 
 const ContentExperiments: FC = () => {
     const data: Queries.ExperimentsQuery = useStaticQuery(graphql`
@@ -49,6 +50,8 @@ const ContentExperiments: FC = () => {
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [filteredExperiments, setFilteredExperiments] = useState(experiments);
 
+    const [selectedExperiment, setSelectedExperiment] = useState<any>();
+
     useEffect(() => {
         let newTags: string[] = [];
         if (experiments) {
@@ -85,6 +88,9 @@ const ContentExperiments: FC = () => {
 
     return (
         <>
+            {selectedExperiment && (
+                <Modal onClose={() => setSelectedExperiment(null)}>Hello</Modal>
+            )}
             <a className={experimentsAnchor || ''} />
             <section className={experimentsAnchor || ''}>
                 <div className="filters">
@@ -121,35 +127,35 @@ const ContentExperiments: FC = () => {
                     />
                 </div>
                 <div className="grid">
-                    {filteredExperiments
-                        ?.slice(0, count)
-                        .map((experiment, index) => (
-                            <Fragment key={experiment?.title}>
-                                <motion.article
-                                    initial={{
-                                        opacity: 0,
-                                        y: isMobile ? 0 : 100,
-                                    }}
-                                    transition={{ duration: 1, type: 'spring' }}
-                                    viewport={{
-                                        once: true,
-                                    }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                >
-                                    {experiment?.thumbnail?.gatsbyImageData && (
-                                        <GatsbyImage
-                                            alt={experiment.title || ''}
-                                            className="image"
-                                            image={
-                                                experiment.thumbnail
-                                                    .gatsbyImageData
-                                            }
-                                        />
-                                    )}
-                                    <p>{experiment?.title}</p>
-                                </motion.article>
-                            </Fragment>
-                        ))}
+                    {filteredExperiments?.slice(0, count).map((experiment) => (
+                        <Fragment key={experiment?.title}>
+                            <motion.article
+                                initial={{
+                                    opacity: 0,
+                                    y: isMobile ? 0 : 100,
+                                }}
+                                onClick={() =>
+                                    setSelectedExperiment(experiment)
+                                }
+                                transition={{ duration: 1, type: 'spring' }}
+                                viewport={{
+                                    once: true,
+                                }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                            >
+                                {experiment?.thumbnail?.gatsbyImageData && (
+                                    <GatsbyImage
+                                        alt={experiment.title || ''}
+                                        className="image"
+                                        image={
+                                            experiment.thumbnail.gatsbyImageData
+                                        }
+                                    />
+                                )}
+                                <p>{experiment?.title}</p>
+                            </motion.article>
+                        </Fragment>
+                    ))}
                 </div>
                 {(filteredExperiments?.length || 0) > count && (
                     <button

@@ -19,6 +19,9 @@ body {
     &.drawer-open {
         overflow: hidden;
     }
+    &.modal-open {
+        overflow: hidden;
+    }
 }
 
 h1 {
