@@ -85,11 +85,10 @@ const ContentContact: FC = () => {
                         triggerOnEnter={true}
                     />
                     <form
-                        action="/"
+                        data-netlify="true"
                         id="contact"
-                        method="POST"
+                        method="post"
                         name="contact"
-                        netlify // eslint-disable-line
                         netlify-honeypot="bot-field" // eslint-disable-line
                         onSubmit={onSubmit}
                     >
