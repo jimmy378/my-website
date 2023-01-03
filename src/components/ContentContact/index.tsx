@@ -58,21 +58,20 @@ const ContentContact: FC = () => {
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         const form = e.target as HTMLFormElement;
         const data = new FormData(form);
-        const xhr = new XMLHttpRequest();
-        xhr.open(form.method, form.action);
-        xhr.setRequestHeader('Accept', 'application/json');
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState !== XMLHttpRequest.DONE) return;
-            if (xhr.status === 200) {
+
+        fetch('/', {
+            body: new URLSearchParams(data as any).toString(),
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            method: 'POST',
+        })
+            .then(() => {
                 form.reset();
                 setSendMessage('Message sent');
-            } else {
-                setSendMessage('Message not sent');
-            }
-        };
-        xhr.send(data);
+            })
+            .catch(() => setSendMessage('Message not sent'));
     };
 
     return (
