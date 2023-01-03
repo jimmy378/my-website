@@ -68,7 +68,6 @@ const ContentContact: FC = () => {
             method: 'POST',
         })
             .then(() => {
-                form.reset();
                 setSendMessage('Message sent');
             })
             .catch(() => setSendMessage('Message not sent'));
@@ -86,7 +85,7 @@ const ContentContact: FC = () => {
                         triggerOnEnter={true}
                     />
                     <form
-                        action="#"
+                        action="/"
                         data-netlify="true"
                         id="contact"
                         method="POST"
