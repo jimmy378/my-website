@@ -86,10 +86,10 @@ const ContentContact: FC = () => {
                     />
                     <form
                         action="/"
-                        data-netlify="true"
                         id="contact"
                         method="POST"
                         name="contact"
+                        netlify // eslint-disable-line
                         netlify-honeypot="bot-field" // eslint-disable-line
                         onSubmit={onSubmit}
                     >
