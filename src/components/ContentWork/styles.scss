@@ -62,6 +62,7 @@ section.work {
         box-sizing: border-box;
         user-select: none;
         min-height: $unit-base * 16.5;
+        padding-right: $unit-base * 2;
         cursor: pointer;
         &:not(:last-child) {
             margin-bottom: $unit-base * 3;

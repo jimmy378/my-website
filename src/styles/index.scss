@@ -56,7 +56,7 @@ main > section {
     padding: 0 $unit-base * 2;
     margin: 0 auto;
     max-width: $unit-desktop;
-    overflow: hidden;
+    // overflow: hidden;
     &:first-of-type {
         height: 100vh;
     }
