@@ -90,8 +90,11 @@ const ContentContact: FC = () => {
                         id="contact"
                         method="POST"
                         name="contact"
+                        netlify-honeypot="bot-field" // eslint-disable-line
                         onSubmit={onSubmit}
                     >
+                        <input name="bot-field" type="hidden" />
+                        <input name="form-name" type="hidden" value="contact" />
                         <span className="input">
                             <input
                                 id="name"
