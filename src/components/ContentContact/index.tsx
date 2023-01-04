@@ -85,16 +85,18 @@ const ContentContact: FC = () => {
                         triggerOnEnter={true}
                     />
                     <form
-                        id="contact"
-                        method="post"
-                        name="contact"
-                        // @ts-expect-error : For netlify
-                        netlify="true" // eslint-disable-line
-                        netlify-honeypot="bot-field" // eslint-disable-line
+                        data-netlify="true"
+                        method="POST"
+                        name="contact-form"
+                        netlify-honeypot="address" // eslint-disable-line
                         onSubmit={onSubmit}
                     >
-                        <input name="bot-field" type="hidden" />
-                        <input name="form-name" type="hidden" value="contact" />
+                        <input name="address" type="hidden" />
+                        <input
+                            name="form-name"
+                            type="hidden"
+                            value="contact-form"
+                        />
                         <span className="input">
                             <input
                                 id="name"
