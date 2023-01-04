@@ -17,7 +17,7 @@ export default function HTML(props) {
                 <form
                     hidden
                     name="contact-form"
-                    netlify // eslint-disable-line
+                    data-netlify="true" // eslint-disable-line
                     netlify-honeypot="address" // eslint-disable-line
                 >
                     <input name="name" type="text" />
