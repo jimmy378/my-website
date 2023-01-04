@@ -84,13 +84,7 @@ const ContentContact: FC = () => {
                         renderer="svg"
                         triggerOnEnter={true}
                     />
-                    <form
-                        data-netlify="true"
-                        method="POST"
-                        name="contact-form"
-                        netlify-honeypot="address" // eslint-disable-line
-                        onSubmit={onSubmit}
-                    >
+                    <form name="contact-form" onSubmit={onSubmit}>
                         <input name="address" type="hidden" />
                         <input
                             name="form-name"
