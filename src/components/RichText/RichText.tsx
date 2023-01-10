@@ -12,8 +12,13 @@ import PostVideo from '../PostVideo/PostVideo';
 const richTextOptions = {
     renderNode: {
         [BLOCKS.EMBEDDED_ASSET]: (node: any) => {
-            const { gatsbyImageData } = node.data.target;
-            return <PostImage imageData={gatsbyImageData} />;
+            const { description, gatsbyImageData } = node.data.target;
+            return (
+                <PostImage
+                    description={description}
+                    imageData={gatsbyImageData}
+                />
+            );
         },
         [BLOCKS.EMBEDDED_ENTRY]: (node: any) => {
             const { __typename, images, link, videoLink } = node.data.target;

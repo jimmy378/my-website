@@ -1,11 +1,20 @@
 @use "sass:math";
 @import "../../styles/variables.scss";
 
-.post-image {
-    border: $unit-line solid rgba($color-light-grey, 0.3);
-    overflow: hidden;
-    box-shadow: $shadow-image;
-    border-radius: math.div($unit-base, 2);
+.post-image > figure {
+    margin: 0;
+    > div {
+        border: $unit-line solid rgba($color-light-grey, 0.3);
+        overflow: hidden;
+        box-shadow: $shadow-image;
+        border-radius: math.div($unit-base, 2);
+    }
+    figcaption {
+        font-size: $type-disclaimer;
+        line-height: $type-disclaimer-lh;
+        text-align: center;
+        margin-top: $unit-base;
+    }
 }
 
 [data-rmiz-modal-overlay] {

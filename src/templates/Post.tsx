@@ -81,6 +81,7 @@ export const query = graphql`
                     }
                     ... on ContentfulAsset {
                         contentful_id
+                        description
                         __typename
                         gatsbyImageData(layout: FULL_WIDTH)
                     }
@@ -88,6 +89,7 @@ export const query = graphql`
                         contentful_id
                         __typename
                         images {
+                            description
                             gatsbyImageData(layout: FULL_WIDTH)
                         }
                     }

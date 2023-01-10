@@ -12,7 +12,11 @@ type Props = {
 const PostGallery: FC<Props> = ({ images }) => (
     <div className="post-gallery">
         {images.map((image, index) => (
-            <PostImage imageData={image} key={`image-${index}`} />
+            <PostImage
+                description={image.description}
+                imageData={image}
+                key={`image-${index}`}
+            />
         ))}
     </div>
 );
