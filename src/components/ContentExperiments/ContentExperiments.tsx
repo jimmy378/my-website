@@ -1,4 +1,4 @@
-import './styles.scss';
+import './ContentExperiments.scss';
 
 import { motion } from 'framer-motion';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -9,9 +9,9 @@ import { isMobile } from 'react-device-detect';
 
 import CrossIcon from '../../icons/cross.svg';
 import Experiment from '../../templates/Experiment';
-import Animation from '../Animation';
-import Dropdown from '../Dropdown';
-import Modal from '../Modal';
+import Animation from '../Animation/Animation';
+import Dropdown from '../Dropdown/Dropdown';
+import Modal from '../Modal/Modal';
 
 const ContentExperiments: FC = () => {
     const data: Queries.ExperimentsQuery = useStaticQuery(graphql`

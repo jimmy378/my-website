@@ -1,14 +1,14 @@
-import '../styles/index.scss';
 import '@fontsource/montserrat/400.css';
 import '@fontsource/montserrat/700.css';
+import '../styles/index.scss';
 import './Post.scss';
 import 'react-medium-image-zoom/dist/styles.css';
 
 import { graphql, HeadFC, PageProps } from 'gatsby';
 import React, { Fragment } from 'react';
 
-import Header from '../components/Header';
-import RichText from '../components/RichText';
+import Header from '../components/Header/Header';
+import RichText from '../components/RichText/RichText';
 
 const PostPage = ({ data }: PageProps<Queries.PostPageQuery>) => {
     if (typeof window === 'undefined') {

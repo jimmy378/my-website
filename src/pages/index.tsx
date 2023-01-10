@@ -5,12 +5,12 @@ import '@fontsource/montserrat/700.css';
 import { graphql, HeadFC } from 'gatsby';
 import * as React from 'react';
 
-import ContentContact from '../components/ContentContact';
-import ContentExperiments from '../components/ContentExperiments';
-import ContentLanding from '../components/ContentLanding';
-import ContentSkills from '../components/ContentSkills';
-import ContentWork from '../components/ContentWork';
-import Header from '../components/Header';
+import ContentContact from '../components/ContentContact/ContentContact';
+import ContentExperiments from '../components/ContentExperiments/ContentExperiments';
+import ContentLanding from '../components/ContentLanding/ContentLanding';
+import ContentSkills from '../components/ContentSkills/ContentSkills';
+import ContentWork from '../components/ContentWork/ContentWork';
+import Header from '../components/Header/Header';
 
 const IndexPage = () => {
     if (typeof window === 'undefined') {

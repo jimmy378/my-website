@@ -1,4 +1,4 @@
-import './styles.scss';
+import './ContentSkills.scss';
 
 import { motion } from 'framer-motion';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -8,7 +8,7 @@ import * as React from 'react';
 import { FC } from 'react';
 import { isMobile } from 'react-device-detect';
 
-import Animation from '../Animation';
+import Animation from '../Animation/Animation';
 
 const ContentSkills: FC = () => {
     const data: Queries.SkillsQuery = useStaticQuery(graphql`

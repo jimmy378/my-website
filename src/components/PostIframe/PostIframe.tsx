@@ -1,4 +1,4 @@
-import './styles.scss';
+import './PostIframe.scss';
 
 import React, { FC } from 'react';
 

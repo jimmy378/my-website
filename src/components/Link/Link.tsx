@@ -1,4 +1,4 @@
-import './styles.scss';
+import './Link.scss';
 
 import * as React from 'react';
 

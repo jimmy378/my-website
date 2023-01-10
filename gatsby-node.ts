@@ -2,7 +2,7 @@ import path from 'path';
 
 export const createPages = async ({ actions, graphql }: any) => {
     const { data } = await graphql(`
-        query {
+        query AllPosts {
             allContentfulPost {
                 edges {
                     node {
@@ -20,4 +20,19 @@ export const createPages = async ({ actions, graphql }: any) => {
             path: slug,
         });
     });
+};
+
+export const onCreateWebpackConfig = ({ actions, getConfig, stage }: any) => {
+    if (stage === 'build-javascript' || stage === 'develop') {
+        const config = getConfig();
+
+        const miniCssExtractPlugin = config.plugins.find(
+            (plugin: any) => plugin.constructor.name === 'MiniCssExtractPlugin'
+        );
+
+        if (miniCssExtractPlugin)
+            miniCssExtractPlugin.options.ignoreOrder = true;
+
+        actions.replaceWebpackConfig(config);
+    }
 };

@@ -1,4 +1,4 @@
-import './styles.scss';
+import './ContentLanding.scss';
 
 import { motion } from 'framer-motion';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -9,9 +9,9 @@ import { FC, useEffect, useState } from 'react';
 import CaretDownIcon from '../../icons/caret_down.svg';
 import CrossIcon from '../../icons/cross.svg';
 import WaveIcon from '../../icons/wave.svg';
-import Animation from '../Animation';
-import Link from '../Link';
-import Spinner from '../Spinner';
+import Animation from '../Animation/Animation';
+import Link from '../Link/Link';
+import Spinner from '../Spinner/Spinner';
 
 const ContentLanding: FC = () => {
     const data: Queries.LandingQuery = useStaticQuery(graphql`

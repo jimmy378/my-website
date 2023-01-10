@@ -1,4 +1,4 @@
-import './styles.scss';
+import './Dropdown.scss';
 
 import React, { useEffect, useRef, useState } from 'react';
 

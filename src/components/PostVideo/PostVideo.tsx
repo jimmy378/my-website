@@ -1,4 +1,4 @@
-import './styles.scss';
+import './PostVideo.scss';
 
 import Vimeo from '@u-wave/react-vimeo';
 import React, { FC } from 'react';

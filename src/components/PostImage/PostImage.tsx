@@ -1,4 +1,4 @@
-import './styles.scss';
+import './PostImage.scss';
 
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import React, { FC } from 'react';

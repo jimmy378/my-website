@@ -1,0 +1,22 @@
+@use "sass:math";
+@import "../../styles/variables.scss";
+
+.post-image {
+    border: $unit-line solid rgba($color-light-grey, 0.3);
+    overflow: hidden;
+    box-shadow: $shadow-image;
+    border-radius: math.div($unit-base, 2);
+}
+
+[data-rmiz-modal-overlay] {
+    cursor: zoom-out;
+    transition: background 0.25s ease;
+}
+
+[data-rmiz-modal-overlay="visible"] {
+    background: rgba($color-base, 0.5);
+}
+
+[data-rmiz-modal-overlay="hidden"] {
+    background: transparent;
+}

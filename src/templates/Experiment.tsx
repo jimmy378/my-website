@@ -2,7 +2,7 @@ import './Experiment.scss';
 
 import React, { FC } from 'react';
 
-import RichText from '../components/RichText';
+import RichText from '../components/RichText/RichText';
 
 type Props = {
     experiment: any;

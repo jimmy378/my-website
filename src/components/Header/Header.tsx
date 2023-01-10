@@ -1,4 +1,4 @@
-import './styles.scss';
+import './Header.scss';
 
 import { motion, PanInfo, useDragControls } from 'framer-motion';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -7,7 +7,7 @@ import { FC, useEffect, useRef, useState } from 'react';
 
 import BurgerIcon from '../../icons/burger.svg';
 import CloseIcon from '../../icons/cross.svg';
-import Link from '../Link';
+import Link from '../Link/Link';
 
 type Props = {
     isHomePage?: boolean;

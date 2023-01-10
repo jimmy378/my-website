@@ -1,9 +1,9 @@
-import './styles.scss';
 import 'react-medium-image-zoom/dist/styles.css';
+import './PostGallery.scss';
 
 import React, { FC } from 'react';
 
-import PostImage from '../PostImage';
+import PostImage from '../PostImage/PostImage';
 
 type Props = {
     images: any[];

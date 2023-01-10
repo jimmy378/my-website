@@ -1,12 +1,12 @@
-import './styles.scss';
+import './ContentContact.scss';
 
 import { graphql, useStaticQuery } from 'gatsby';
 import lottie from 'lottie-web';
 import * as React from 'react';
 import { FC, useEffect, useRef, useState } from 'react';
 
-import Animation from '../Animation';
-import Spinner from '../Spinner';
+import Animation from '../Animation/Animation';
+import Spinner from '../Spinner/Spinner';
 
 const ContentContact: FC = () => {
     const data: Queries.ContactQuery = useStaticQuery(graphql`

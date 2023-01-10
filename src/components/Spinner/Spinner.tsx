@@ -1,4 +1,4 @@
-import './styles.scss';
+import './Spinner.scss';
 
 import * as React from 'react';
 

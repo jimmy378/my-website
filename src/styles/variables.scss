@@ -11,34 +11,34 @@ $type-base-lh: 24px;
 $type-large-lh: 30px;
 $type-heading-lh: 54px;
 
-$color-white: #FFF;
+$color-white: #fff;
 $color-base: #001235;
-$color-primary: #60BC65;
-$color-primary-dark: #22AF2A;
-$color-secondary: #7B3FD9;
-$color-grey: #5E6E8D;
-$color-light-grey: #D7D8DA;
+$color-primary: #60bc65;
+$color-primary-dark: #22af2a;
+$color-secondary: #7b3fd9;
+$color-grey: #5e6e8d;
+$color-light-grey: #d7d8da;
 
 $unit-desktop: 1000px;
 @mixin breakpoint-desktop {
     @media (max-width: #{$unit-desktop}) {
         @content;
     }
- }
+}
 
 $unit-mobile: 640px;
 @mixin breakpoint-mobile {
     @media (max-width: #{$unit-mobile}) {
         @content;
     }
- }
+}
 
 $shadow-header: 0 $unit-base $unit-base * 3.5 rgba($color-base, 0.025);
 $shadow-drawer: $unit-base * -2 0 $unit-base * 3.5 rgba($color-base, 0.1);
 $shadow-card: 0 $unit-base * 2.5 $unit-base * 2.5 rgba($color-base, 0.02);
+$shadow-image: 0 $unit-base * 2.5 $unit-base * 2.5 rgba($color-base, 0.02),
+    0 $unit-base * 2.5 $unit-base * 2.5 rgba($color-base, 0.02);
 $shadow-hover: 0 $unit-base * 2.5 $unit-base * 4 rgba($color-base, 0.05);
 $shadow-active: 0 $unit-base $unit-base rgba($color-base, 0.05);
-$shadow-focus: inset 0 0 0 2px $color-white,
-0 0 0 1px $color-primary,
-0 0 0 3px rgba($color-primary, 0.2),
-0 0 0 2px $color-white;
+$shadow-focus: inset 0 0 0 2px $color-white, 0 0 0 1px $color-primary, 0 0 0 3px rgba($color-primary, 0.2),
+    0 0 0 2px $color-white;

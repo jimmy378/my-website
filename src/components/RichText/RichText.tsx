@@ -1,14 +1,13 @@
-import './styles.scss';
+import './RichText.scss';
 
 import { BLOCKS } from '@contentful/rich-text-types';
-import Vimeo from '@u-wave/react-vimeo';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import React, { FC } from 'react';
 
-import PostGallery from '../PostGallery';
-import PostIframe from '../PostIframe';
-import PostImage from '../PostImage';
-import PostVideo from '../PostVideo';
+import PostGallery from '../PostGallery/PostGallery';
+import PostIframe from '../PostIframe/PostIframe';
+import PostImage from '../PostImage/PostImage';
+import PostVideo from '../PostVideo/PostVideo';
 
 const richTextOptions = {
     renderNode: {

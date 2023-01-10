@@ -1,4 +1,4 @@
-import './styles.scss';
+import './ContentWork.scss';
 
 import { motion } from 'framer-motion';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -9,8 +9,8 @@ import { FC } from 'react';
 import { isMobile } from 'react-device-detect';
 
 import CrossIcon from '../../icons/cross.svg';
-import Animation from '../Animation';
-import Dropdown from '../Dropdown';
+import Animation from '../Animation/Animation';
+import Dropdown from '../Dropdown/Dropdown';
 
 const ContentWork: FC = () => {
     const data: Queries.WorkQuery = useStaticQuery(graphql`

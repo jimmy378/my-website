@@ -1,4 +1,4 @@
-import './styles.scss';
+import './Animation.scss';
 
 import { useInView } from 'framer-motion';
 import lottie, { AnimationItem } from 'lottie-web';
