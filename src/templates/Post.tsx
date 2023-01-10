@@ -23,7 +23,7 @@ const PostPage = ({ data }: PageProps<Queries.PostPageQuery>) => {
         <main>
             <Header isHomePage={false} />
             <section className="content">
-                <ul>
+                <ul className="tags">
                     {tags?.tags?.map((tag, index) => (
                         <Fragment key={tag}>
                             <li>{tag}</li>
