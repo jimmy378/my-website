@@ -1,0 +1,177 @@
+@use "sass:math";
+@import "../../styles/variables.scss";
+
+section.experiments {
+    .filters {
+        display: flex;
+        align-items: center;
+        margin-bottom: $unit-base * 3;
+        gap: $unit-base;
+        .player {
+            width: 556px;
+            svg {
+                width: 420px !important;
+            }
+        }
+        div.options {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: $unit-base;
+            button {
+                border: none;
+                background: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: math.div($unit-base, 2);
+                color: $color-base;
+                cursor: pointer;
+                user-select: none;
+                svg {
+                    width: math.div($unit-base, 1.5);
+                    height: math.div($unit-base, 1.5);
+                    path {
+                        stroke: $color-base;
+                    }
+                }
+                &:hover {
+                    color: $color-primary;
+                    svg path {
+                        stroke: $color-primary;
+                    }
+                }
+                &:active {
+                    color: $color-primary-dark;
+                    svg path {
+                        stroke: $color-primary-dark;
+                    }
+                }
+            }
+        }
+        .dropdown {
+            flex-shrink: 0;
+            width: fit-content;
+        }
+        h1 {
+            flex-shrink: 0;
+        }
+    }
+    .grid {
+        display: grid;
+        gap: $unit-base * 2;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        margin-bottom: $unit-base * 3;
+    }
+    article {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: math.div($unit-base, 2);
+        box-sizing: border-box;
+        transition: all 0.15s ease;
+        user-select: none;
+        width: 100%;
+        cursor: pointer;
+        .image {
+            position: relative;
+            transition: all 0.15s ease;
+            width: 100%;
+            align-self: stretch;
+            object-fit: cover;
+            background: $color-light-grey;
+            box-shadow: $shadow-card;
+            &::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 0;
+                background: $color-primary;
+                transition: all 0.3s ease;
+                opacity: 0.25;
+            }
+        }
+        p {
+            margin: 0;
+            font-size: $type-small;
+            line-height: $type-small-lh;
+        }
+
+        &:hover .image {
+            box-shadow: $shadow-hover;
+            transform: scale(1.025);
+            &::after {
+                width: 100%;
+            }
+        }
+
+        &:active .image {
+            box-shadow: $shadow-active;
+            transform: scale(1);
+        }
+    }
+    > button {
+        background: $color-white;
+        color: $color-base;
+        outline: none;
+        border: $unit-line solid $color-base;
+        padding: 0 $unit-base;
+        height: $unit-base * 3;
+        cursor: pointer;
+        user-select: none;
+        > svg {
+            width: $unit-base;
+            margin-left: math.div($unit-base, 2);
+            path {
+                stroke: $color-base;
+            }
+        }
+
+        &:hover {
+            border-color: $color-primary;
+            color: $color-primary;
+            > svg path {
+                stroke: $color-primary;
+            }
+        }
+
+        &:active {
+            background: rgba($color-primary-dark, 0.05);
+        }
+    }
+
+    @include breakpoint-desktop {
+        .filters .animation-header {
+            display: block;
+        }
+        .filters > div {
+            display: none;
+        }
+        .filters > .dropdown {
+            display: none;
+        }
+    }
+
+    @include breakpoint-mobile {
+        .filters .player {
+            width: 400px;
+            svg {
+                width: 280px !important;
+            }
+        }
+        .divider {
+            margin-bottom: $unit-base * 3;
+            border-bottom: $unit-line solid $color-light-grey;
+        }
+        .divider {
+            margin-bottom: $unit-base * 2;
+        }
+        > button {
+            margin-left: 0;
+            width: fit-content;
+        }
+    }
+}

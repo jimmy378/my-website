@@ -1,0 +1,142 @@
+@use "sass:math";
+@import "./reset.scss";
+@import "./variables.scss";
+
+*:focus-visible {
+    box-shadow: $shadow-focus !important;
+    outline: none !important;
+    border-radius: math.div($unit-base, 4);
+}
+
+body {
+    color: $color-base;
+    font-family: "Montserrat", sans-serif;
+    font-size: $type-base;
+    line-height: $type-base-lh;
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+    &.drawer-open {
+        overflow: hidden;
+    }
+    &.modal-open {
+        overflow: hidden;
+    }
+}
+
+h1 {
+    font-size: $type-heading;
+    line-height: $type-heading-lh;
+    margin: 0;
+}
+
+h2 {
+    font-size: $type-large;
+    line-height: $type-large-lh;
+    margin: 0;
+}
+
+a {
+    color: $color-primary-dark;
+    appearance: none;
+    text-decoration-color: rgba($color-primary, 0.5);
+    text-decoration-thickness: $unit-line;
+    &:active {
+        color: mix($color-base, $color-primary-dark, 20%);
+    }
+}
+
+main > a {
+    display: block;
+    height: $unit-base;
+    margin-bottom: $unit-base * -1;
+}
+
+main > section {
+    padding: 0 $unit-base * 2;
+    margin: 0 auto;
+    max-width: $unit-desktop;
+    // overflow: hidden;
+    &:first-of-type {
+        height: 100vh;
+    }
+    &:not(:first-of-type) {
+        margin-top: $unit-base * 16;
+    }
+
+    @include breakpoint-mobile {
+        &:not(:first-of-type) {
+            margin-top: $unit-base * 10;
+        }
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    label {
+        font-size: $type-small;
+        line-height: $type-small-lh;
+        color: rgba($color-base, 0.75);
+        order: 0;
+        transition: color 0.5s ease;
+        user-select: none;
+    }
+    input,
+    textarea {
+        border: none;
+        outline: none;
+        border-bottom: $unit-line solid rgba($color-base, 0.25);
+        min-height: $unit-base * 3;
+        order: 1;
+        transition: background 0.5s ease;
+        border-radius: $unit-line * 2;
+        padding: 0;
+        ~ span {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: $unit-line * 2;
+            background: $color-primary;
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+            transform-origin: left;
+        }
+        &:focus {
+            background: rgba($color-primary, 0.1);
+            + label {
+                color: $color-primary;
+            }
+            ~ span {
+                transform: scaleX(1);
+            }
+            box-shadow: none !important;
+            border-radius: $unit-line * 2;
+        }
+    }
+    textarea {
+        min-height: $unit-base * 9;
+    }
+}
+
+input[type="submit"] {
+    cursor: pointer;
+    height: $unit-base * 3;
+    width: fit-content;
+    padding: 0 $unit-base;
+    border-radius: $unit-line * 2;
+    background: $color-white;
+    border: $unit-line solid rgba($color-base, 0.5);
+    &:hover {
+        background: rgba($color-base, 0.05);
+    }
+    &:active {
+        background: rgba($color-base, 0.1);
+    }
+}

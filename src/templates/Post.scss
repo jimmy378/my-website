@@ -1,0 +1,96 @@
+@use "sass:math";
+@import "../styles/variables.scss";
+
+section.content {
+    padding-top: $unit-base * 8;
+    max-width: $unit-base * 58;
+    margin-bottom: $unit-base * 12;
+    overflow: visible;
+    &:first-of-type {
+        height: auto;
+    }
+    p {
+        margin: 0;
+    }
+    > * {
+        &:not(:last-child) {
+            margin-bottom: $unit-base * 2;
+        }
+    }
+    .post-image:not(:last-child) {
+        margin-bottom: $unit-base * 3;
+    }
+    .tags {
+        appearance: none;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        color: $color-grey;
+        font-size: $type-small;
+        line-height: $type-small-lh;
+        gap: math.div($unit-base, 2);
+        &::before {
+            display: none;
+        }
+        > span {
+            width: $unit-line * 3;
+            height: $unit-line * 3;
+            border-radius: $unit-line * 3;
+            background: $color-grey;
+        }
+        &:not(:last-child) {
+            margin-bottom: math.div($unit-base, 2);
+        }
+    }
+
+    hr {
+        border-color: rgba($color-light-grey, 0.3);
+        border-width: $unit-line;
+        width: 100%;
+    }
+
+    blockquote,
+    ul,
+    ol {
+        position: relative;
+        margin-left: $unit-base * 2;
+        &::before {
+            content: "";
+            position: absolute;
+            left: $unit-base * -2;
+            height: 100%;
+            width: math.div($unit-base, 2);
+            background: $color-primary;
+        }
+    }
+
+    ul,
+    ol {
+        margin-left: 0;
+        ::marker {
+            color: $color-secondary;
+            font-weight: 600;
+        }
+        &::before {
+            left: 0;
+            background: $color-secondary;
+            opacity: 0.2;
+        }
+    }
+
+    @include breakpoint-mobile {
+        min-height: 0;
+        padding-top: $unit-base * 2;
+        > ul,
+        > h1 {
+            margin-right: $unit-base * 5;
+        }
+        > h1 {
+            font-size: 30px;
+            line-height: 36px;
+        }
+    }
+}

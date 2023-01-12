@@ -1,0 +1,80 @@
+@use "sass:math";
+@import "../../styles/variables.scss";
+
+@keyframes slide-on {
+    from {
+        transform: scale(0.9) translateY(100px);
+    }
+    to {
+        transform: scale(1) translateY(0);
+    }
+}
+
+#modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    background: rgba($color-base, 0.75);
+    transition: all 0.25s ease;
+    &:empty {
+        background: rgba($color-base, 0);
+        pointer-events: none;
+    }
+    > svg {
+        width: $unit-base;
+        height: $unit-base;
+        position: absolute;
+        top: $unit-base;
+        right: $unit-base;
+        path {
+            stroke: $color-white;
+            stroke-width: $unit-line * 3;
+        }
+        pointer-events: none;
+    }
+    .close-area {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        cursor: zoom-out;
+    }
+    .frame {
+        position: relative;
+        cursor: default;
+        box-sizing: border-box;
+        padding: $unit-base * 3 $unit-base * 2;
+        width: 100%;
+        height: 100%;
+        background: $color-white;
+        border-radius: $unit-base $unit-base 0 0;
+        animation: slide-on 0.25s ease;
+        overflow-y: auto;
+        padding-bottom: $unit-base * 6;
+        max-width: 1000px;
+        margin: $unit-base * 3 auto 0;
+    }
+    .content {
+        max-width: $unit-base * 58;
+        margin: 0 auto;
+    }
+
+    @include breakpoint-mobile {
+        > svg {
+            width: $unit-base * 1.5;
+            height: $unit-base * 1.5;
+            transform: translate(-3px, 3px);
+            path {
+                stroke: $color-white;
+                stroke-width: $unit-line * 2;
+            }
+        }
+        .frame {
+            margin-top: $unit-base * 4;
+        }
+    }
+}

@@ -1,0 +1,52 @@
+@use "sass:math";
+@import "../../styles/variables.scss";
+
+section.contact {
+    overflow: hidden;
+    display: flex;
+    .content {
+        height: $unit-base * 40;
+        .animation-header {
+            margin-bottom: $unit-base * 3;
+        }
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        width: $unit-base * 36;
+        min-width: $unit-base * 36;
+        gap: $unit-base * 2;
+    }
+    input[type="submit"] {
+        align-self: end;
+        color: $color-base;
+        font-weight: normal;
+    }
+    .animation {
+        overflow: hidden;
+        height: $unit-base * 50;
+        width: 100%;
+        transform: scale(1.2) translateX($unit-base * 4) translateY($unit-base * 4);
+        .player {
+            height: 100%;
+        }
+    }
+
+    @include breakpoint-desktop {
+        .animation {
+            display: none;
+        }
+        .content {
+            width: 100%;
+        }
+        form {
+            width: 100%;
+            min-width: 100%;
+        }
+        margin-bottom: $unit-base * 6;
+    }
+
+    @include breakpoint-mobile {
+        margin-bottom: 0;
+    }
+}

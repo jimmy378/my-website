@@ -11,22 +11,40 @@ const config: GatsbyConfig = {
         'gatsby-plugin-sass',
         'gatsby-plugin-image',
         'gatsby-plugin-sitemap',
-        'gatsby-plugin-mdx',
         'gatsby-plugin-sharp',
         'gatsby-transformer-sharp',
+        {
+            options: {
+                accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+                spaceId: process.env.CONTENTFUL_SPACE_ID,
+            },
+            resolve: 'gatsby-source-contentful',
+        },
+        {
+            options: {
+                rule: {
+                    include: /icons/,
+                },
+            },
+            resolve: 'gatsby-plugin-react-svg',
+        },
+        {
+            options: {
+                extensions: [`.mdx`, `.md`],
+            },
+            resolve: `gatsby-plugin-mdx`,
+        },
+        {
+            options: {
+                icon: 'src/images/icon.png',
+            },
+            resolve: 'gatsby-plugin-manifest',
+        },
         {
             __key: 'images',
             options: {
                 name: 'images',
                 path: './src/images/',
-            },
-            resolve: 'gatsby-source-filesystem',
-        },
-        {
-            __key: 'animations',
-            options: {
-                name: 'animations',
-                path: './src/animations/',
             },
             resolve: 'gatsby-source-filesystem',
         },
@@ -46,7 +64,6 @@ const config: GatsbyConfig = {
             },
             resolve: 'gatsby-source-filesystem',
         },
-
         {
             options: {
                 gtagConfig: {

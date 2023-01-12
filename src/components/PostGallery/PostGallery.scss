@@ -1,0 +1,10 @@
+@use "sass:math";
+@import "../../styles/variables.scss";
+
+.post-gallery {
+    display: flex;
+    gap: $unit-base;
+    > * {
+        flex: 1;
+    }
+}
