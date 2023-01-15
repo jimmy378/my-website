@@ -10,7 +10,12 @@ type Props = {
 
 const PostIframe: FC<Props> = ({ link }) => (
     <div className="post-iframe">
-        <iframe frameBorder="0" height="100%" src={link.link}></iframe>
+        <iframe
+            allow="clipboard-read; clipboard-write"
+            frameBorder="0"
+            height="100%"
+            src={link.link}
+        ></iframe>
     </div>
 );
 
