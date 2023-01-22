@@ -45,43 +45,6 @@ const ContentFeatured: FC = () => {
 
     const { featured, featuredAnchor, featuredHeading } =
         data.contentfulHomePage;
-    const [tags, setTags] = useState<string[]>([]);
-    const [selectedTags, setSelectedTags] = useState<string[]>([]);
-    const [filteredPosts, setFilteredPosts] = useState(featured);
-
-    useEffect(() => {
-        let newTags: string[] = [];
-        if (featured) {
-            for (const post of featured) {
-                const postTags = post?.tags?.tags;
-                if (postTags) {
-                    newTags = [...newTags, ...(postTags as any)];
-                }
-            }
-        }
-        setTags([...new Set(newTags)]);
-    }, []);
-
-    useEffect(() => {
-        let newPosts = featured;
-        if (selectedTags.length > 0) {
-            newPosts =
-                featured?.filter((post) =>
-                    post?.tags?.tags?.some((tag) =>
-                        selectedTags.includes(tag || '')
-                    )
-                ) || [];
-        }
-        setFilteredPosts(newPosts);
-    }, [selectedTags]);
-
-    const updateSelectedTags = (selected: string) => {
-        if (selectedTags.includes(selected)) {
-            setSelectedTags(selectedTags.filter((tag) => tag !== selected));
-        } else {
-            setSelectedTags([...selectedTags, selected]);
-        }
-    };
 
     return (
         <>
@@ -94,33 +57,8 @@ const ContentFeatured: FC = () => {
                         renderer="svg"
                         triggerOnEnter={true}
                     />
-                    <div className="options">
-                        {selectedTags.map((tag) => (
-                            <button
-                                key={tag}
-                                onClick={() => updateSelectedTags(tag)}
-                            >
-                                {tag}
-                                <CrossIcon />
-                            </button>
-                        ))}
-                        {selectedTags.length > 0 && (
-                            <button onClick={() => setSelectedTags([])}>
-                                {'Clear'}
-                                <CrossIcon />
-                            </button>
-                        )}
-                    </div>
-                    <Dropdown
-                        onSelect={updateSelectedTags}
-                        options={tags.map((tag) => ({
-                            selected: selectedTags.includes(tag),
-                            text: tag,
-                        }))}
-                        title="Filters"
-                    />
                 </div>
-                {filteredPosts?.map((post, index) => {
+                {featured?.map((post, index) => {
                     if (post?.isPrivate) {
                         return null;
                     }
@@ -166,7 +104,7 @@ const ContentFeatured: FC = () => {
                                     <span>{'Read more'}</span>
                                 </div>
                             </motion.article>
-                            {index < filteredPosts.length - 1 ? (
+                            {index < featured.length - 1 ? (
                                 <div className="divider" />
                             ) : null}
                         </Fragment>
