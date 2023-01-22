@@ -7,12 +7,6 @@ section.gallery {
         align-items: center;
         margin-bottom: $unit-base * 3;
         gap: $unit-base;
-        .player {
-            width: 556px;
-            svg {
-                width: 420px !important;
-            }
-        }
         div.options {
             width: 100%;
             display: flex;
@@ -163,12 +157,6 @@ section.gallery {
     }
 
     @include breakpoint-mobile {
-        .filters .player {
-            width: 400px;
-            svg {
-                width: 280px !important;
-            }
-        }
         .divider {
             margin-bottom: $unit-base * 3;
             border-bottom: $unit-line solid $color-light-grey;
