@@ -9,7 +9,6 @@ section.skills {
         display: flex;
         align-items: center;
         gap: $unit-base * 6;
-        margin-top: $unit-base * -5;
         h2 {
             margin: 0;
             margin-bottom: $unit-base;
@@ -24,20 +23,22 @@ section.skills {
         &:nth-child(odd) {
             flex-direction: row-reverse;
         }
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            margin-top: $unit-base;
+        }
     }
 
     @include breakpoint-desktop {
-        article {
-            margin-top: $unit-base;
-            .image {
-                width: $unit-base * 20;
-                min-width: $unit-base * 20;
-            }
+        article .image {
+            width: $unit-base * 20;
+            min-width: $unit-base * 20;
         }
     }
 
     @include breakpoint-mobile {
-        margin-top: 0;
         article {
             flex-direction: column;
             gap: $unit-base * 2;
