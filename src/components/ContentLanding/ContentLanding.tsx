@@ -36,7 +36,7 @@ const ContentLanding: FC = () => {
                         title
                     }
                 }
-                workAnchor
+                featuredAnchor
             }
         }
     `);
@@ -49,12 +49,12 @@ const ContentLanding: FC = () => {
     const [displayMobileAnimation, setDisplayMobileAnimation] = useState(false);
     const [continueVisible, setContinueVisible] = useState(true);
     const {
+        featuredAnchor,
         landingAnchor,
         landingAnimation,
         landingContent,
         landingHeading,
         links,
-        workAnchor,
     } = data.contentfulHomePage;
 
     useEffect(() => {
@@ -133,7 +133,7 @@ const ContentLanding: FC = () => {
                         className={`continue ${
                             continueVisible ? 'visible' : ''
                         }`.trim()}
-                        href={`#${workAnchor || ''}`}
+                        href={`#${featuredAnchor || ''}`}
                     >
                         <CaretDownIcon />
                     </a>

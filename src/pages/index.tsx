@@ -6,10 +6,10 @@ import { graphql, HeadFC } from 'gatsby';
 import * as React from 'react';
 
 import ContentContact from '../components/ContentContact/ContentContact';
-import ContentExperiments from '../components/ContentExperiments/ContentExperiments';
+import ContentFeatured from '../components/ContentFeatured/ContentFeatured';
+import ContentGallery from '../components/ContentGallery/ContentGallery';
 import ContentLanding from '../components/ContentLanding/ContentLanding';
 import ContentSkills from '../components/ContentSkills/ContentSkills';
-import ContentWork from '../components/ContentWork/ContentWork';
 import Header from '../components/Header/Header';
 
 const IndexPage = () => {
@@ -21,8 +21,8 @@ const IndexPage = () => {
         <main>
             <Header />
             <ContentLanding />
-            <ContentWork />
-            <ContentExperiments />
+            <ContentFeatured />
+            <ContentGallery />
             <ContentSkills />
             <ContentContact />
         </main>

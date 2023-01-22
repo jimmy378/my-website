@@ -1,53 +1,39 @@
-import './ContentExperiments.scss';
+import './ContentFeatured.scss';
 
 import { motion } from 'framer-motion';
 import { graphql, useStaticQuery } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
+import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import React, { Fragment, useEffect, useState } from 'react';
 import { FC } from 'react';
 import { isMobile } from 'react-device-detect';
 
 import CrossIcon from '../../icons/cross.svg';
-import Experiment from '../../templates/Experiment';
 import Animation from '../Animation/Animation';
 import Dropdown from '../Dropdown/Dropdown';
-import Modal from '../Modal/Modal';
 
-const ContentExperiments: FC = () => {
-    const data: Queries.ExperimentsQuery = useStaticQuery(graphql`
-        query Experiments {
+const ContentFeatured: FC = () => {
+    const data: Queries.FeaturedQuery = useStaticQuery(graphql`
+        query Featured {
             contentfulHomePage {
-                experimentsSection
-                experimentsAnchor
-                experimentsCount
-                experimentsHeading {
+                featuredSection
+                featuredAnchor
+                featuredHeading {
                     url
                 }
-                experiments {
+                featured {
+                    slug
                     title
                     thumbnail {
                         gatsbyImageData(layout: FULL_WIDTH)
                     }
-                    content {
+                    description {
                         raw
-                        references {
-                            ... on ContentfulComponentIframe {
-                                contentful_id
-                                __typename
-                                link {
-                                    link
-                                }
-                            }
-                            ... on ContentfulAsset {
-                                contentful_id
-                                __typename
-                                gatsbyImageData(layout: FULL_WIDTH)
-                            }
-                        }
                     }
                     tags {
                         tags
                     }
+                    isPrivate
                 }
             }
         }
@@ -57,26 +43,19 @@ const ContentExperiments: FC = () => {
         return null;
     }
 
-    const {
-        experiments,
-        experimentsAnchor,
-        experimentsCount,
-        experimentsHeading,
-    } = data.contentfulHomePage;
-    const [count, setCount] = useState(isMobile ? 3 : experimentsCount || 3);
+    const { featured, featuredAnchor, featuredHeading } =
+        data.contentfulHomePage;
     const [tags, setTags] = useState<string[]>([]);
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
-    const [filteredExperiments, setFilteredExperiments] = useState(experiments);
-
-    const [selectedExperiment, setSelectedExperiment] = useState<any>();
+    const [filteredPosts, setFilteredPosts] = useState(featured);
 
     useEffect(() => {
         let newTags: string[] = [];
-        if (experiments) {
-            for (const experiment of experiments) {
-                const experimentTags = experiment?.tags?.tags;
-                if (experimentTags) {
-                    newTags = [...newTags, ...(experimentTags as any)];
+        if (featured) {
+            for (const post of featured) {
+                const postTags = post?.tags?.tags;
+                if (postTags) {
+                    newTags = [...newTags, ...(postTags as any)];
                 }
             }
         }
@@ -84,16 +63,16 @@ const ContentExperiments: FC = () => {
     }, []);
 
     useEffect(() => {
-        let newExperiments = experiments;
+        let newPosts = featured;
         if (selectedTags.length > 0) {
-            newExperiments =
-                experiments?.filter((experiment) =>
-                    experiment?.tags?.tags?.some((tag) =>
+            newPosts =
+                featured?.filter((post) =>
+                    post?.tags?.tags?.some((tag) =>
                         selectedTags.includes(tag || '')
                     )
                 ) || [];
         }
-        setFilteredExperiments(newExperiments);
+        setFilteredPosts(newPosts);
     }, [selectedTags]);
 
     const updateSelectedTags = (selected: string) => {
@@ -106,16 +85,11 @@ const ContentExperiments: FC = () => {
 
     return (
         <>
-            {selectedExperiment && (
-                <Modal onClose={() => setSelectedExperiment(null)}>
-                    <Experiment experiment={selectedExperiment} />
-                </Modal>
-            )}
-            <a className={experimentsAnchor || ''} />
-            <section className={experimentsAnchor || ''}>
+            <a className={featuredAnchor || ''} />
+            <section className={featuredAnchor || ''}>
                 <div className="filters">
                     <Animation
-                        animationUrl={experimentsHeading?.url || ''}
+                        animationUrl={featuredHeading?.url || ''}
                         customClass="animation-header"
                         renderer="svg"
                         triggerOnEnter={true}
@@ -146,49 +120,61 @@ const ContentExperiments: FC = () => {
                         title="Filters"
                     />
                 </div>
-                <div className="grid">
-                    {filteredExperiments?.slice(0, count).map((experiment) => (
-                        <Fragment key={experiment?.title}>
+                {filteredPosts?.map((post, index) => {
+                    if (post?.isPrivate) {
+                        return null;
+                    }
+                    return (
+                        <Fragment key={post?.slug}>
                             <motion.article
-                                initial={{
-                                    opacity: 0,
-                                    y: isMobile ? 0 : 100,
-                                }}
-                                onClick={() =>
-                                    setSelectedExperiment(experiment)
-                                }
+                                initial={{ opacity: 0, y: isMobile ? 0 : 100 }}
                                 transition={{ duration: 1, type: 'spring' }}
                                 viewport={{
                                     once: true,
                                 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                             >
-                                {experiment?.thumbnail?.gatsbyImageData && (
+                                <a href={post?.slug || ''}></a>
+                                {post?.thumbnail?.gatsbyImageData && (
                                     <GatsbyImage
-                                        alt={experiment.title || ''}
+                                        alt={post.title || ''}
                                         className="image"
-                                        image={
-                                            experiment.thumbnail.gatsbyImageData
-                                        }
+                                        image={post.thumbnail.gatsbyImageData}
                                     />
                                 )}
-                                <p>{experiment?.title}</p>
+                                <div className="content">
+                                    <ul>
+                                        {post?.tags?.tags?.map((tag, index) => (
+                                            <Fragment key={tag}>
+                                                <li>{tag}</li>
+                                                {index <
+                                                (post.tags?.tags?.length
+                                                    ? post.tags?.tags?.length -
+                                                      1
+                                                    : 0) ? (
+                                                    <span />
+                                                ) : null}
+                                            </Fragment>
+                                        ))}
+                                    </ul>
+                                    <h2>{post?.title}</h2>
+                                    {post?.description &&
+                                        renderRichText(
+                                            post?.description as any,
+                                            {}
+                                        )}
+                                    <span>{'Read more'}</span>
+                                </div>
                             </motion.article>
+                            {index < filteredPosts.length - 1 ? (
+                                <div className="divider" />
+                            ) : null}
                         </Fragment>
-                    ))}
-                </div>
-                {(filteredExperiments?.length || 0) > count && (
-                    <button
-                        onClick={() =>
-                            setCount(count + (experimentsCount || 3))
-                        }
-                    >
-                        {'Show more'}
-                    </button>
-                )}
+                    );
+                })}
             </section>
         </>
     );
 };
 
-export default ContentExperiments;
+export default ContentFeatured;

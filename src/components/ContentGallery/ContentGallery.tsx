@@ -1,9 +1,8 @@
-import './ContentWork.scss';
+import './ContentGallery.scss';
 
 import { motion } from 'framer-motion';
 import { graphql, useStaticQuery } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
-import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import React, { Fragment, useEffect, useState } from 'react';
 import { FC } from 'react';
 import { isMobile } from 'react-device-detect';
@@ -11,30 +10,44 @@ import { isMobile } from 'react-device-detect';
 import CrossIcon from '../../icons/cross.svg';
 import Animation from '../Animation/Animation';
 import Dropdown from '../Dropdown/Dropdown';
+import Modal from '../Modal/Modal';
 
-const ContentWork: FC = () => {
-    const data: Queries.WorkQuery = useStaticQuery(graphql`
-        query Work {
+const ContentGallery: FC = () => {
+    const data: Queries.GalleryQuery = useStaticQuery(graphql`
+        query Gallery {
             contentfulHomePage {
-                workSection
-                workAnchor
-                workCount
-                workHeading {
+                gallerySection
+                galleryAnchor
+                galleryCount
+                galleryHeading {
                     url
                 }
-                posts {
+                gallery {
                     slug
                     title
                     thumbnail {
                         gatsbyImageData(layout: FULL_WIDTH)
                     }
-                    description {
+                    content {
                         raw
+                        references {
+                            ... on ContentfulComponentIframe {
+                                contentful_id
+                                __typename
+                                link {
+                                    link
+                                }
+                            }
+                            ... on ContentfulAsset {
+                                contentful_id
+                                __typename
+                                gatsbyImageData(layout: FULL_WIDTH)
+                            }
+                        }
                     }
                     tags {
                         tags
                     }
-                    isPrivate
                 }
             }
         }
@@ -44,20 +57,21 @@ const ContentWork: FC = () => {
         return null;
     }
 
-    const { posts, workAnchor, workCount, workHeading } =
+    const { gallery, galleryAnchor, galleryCount, galleryHeading } =
         data.contentfulHomePage;
-    const [count, setCount] = useState(workCount || 3);
+    const [count, setCount] = useState(isMobile ? 3 : galleryCount || 3);
     const [tags, setTags] = useState<string[]>([]);
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
-    const [filteredPosts, setFilteredPosts] = useState(posts);
+    const [filteredPosts, setFilteredPosts] = useState(gallery);
+    const [selectedPost, setSelectedPost] = useState<any>();
 
     useEffect(() => {
         let newTags: string[] = [];
-        if (posts) {
-            for (const post of posts) {
-                const postTags = post?.tags?.tags;
-                if (postTags) {
-                    newTags = [...newTags, ...(postTags as any)];
+        if (gallery) {
+            for (const post of gallery) {
+                const experimentTags = post?.tags?.tags;
+                if (experimentTags) {
+                    newTags = [...newTags, ...(experimentTags as any)];
                 }
             }
         }
@@ -65,16 +79,16 @@ const ContentWork: FC = () => {
     }, []);
 
     useEffect(() => {
-        let newPosts = posts;
+        let newExperiments = gallery;
         if (selectedTags.length > 0) {
-            newPosts =
-                posts?.filter((post) =>
+            newExperiments =
+                gallery?.filter((post) =>
                     post?.tags?.tags?.some((tag) =>
                         selectedTags.includes(tag || '')
                     )
                 ) || [];
         }
-        setFilteredPosts(newPosts);
+        setFilteredPosts(newExperiments);
     }, [selectedTags]);
 
     const updateSelectedTags = (selected: string) => {
@@ -87,11 +101,11 @@ const ContentWork: FC = () => {
 
     return (
         <>
-            <a className={workAnchor || ''} />
-            <section className={workAnchor || ''}>
+            <a className={galleryAnchor || ''} />
+            <section className={galleryAnchor || ''}>
                 <div className="filters">
                     <Animation
-                        animationUrl={workHeading?.url || ''}
+                        animationUrl={galleryHeading?.url || ''}
                         customClass="animation-header"
                         renderer="svg"
                         triggerOnEnter={true}
@@ -122,21 +136,21 @@ const ContentWork: FC = () => {
                         title="Filters"
                     />
                 </div>
-                {filteredPosts?.slice(0, count).map((post, index) => {
-                    if (post?.isPrivate) {
-                        return null;
-                    }
-                    return (
-                        <Fragment key={post?.slug}>
+                <div className="grid">
+                    {filteredPosts?.slice(0, count).map((post) => (
+                        <Fragment key={post?.title}>
                             <motion.article
-                                initial={{ opacity: 0, y: isMobile ? 0 : 100 }}
+                                initial={{
+                                    opacity: 0,
+                                    y: isMobile ? 0 : 100,
+                                }}
+                                onClick={() => setSelectedPost(post)}
                                 transition={{ duration: 1, type: 'spring' }}
                                 viewport={{
                                     once: true,
                                 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                             >
-                                <a href={post?.slug || ''}></a>
                                 {post?.thumbnail?.gatsbyImageData && (
                                     <GatsbyImage
                                         alt={post.title || ''}
@@ -144,40 +158,16 @@ const ContentWork: FC = () => {
                                         image={post.thumbnail.gatsbyImageData}
                                     />
                                 )}
-                                <div className="content">
-                                    <ul>
-                                        {post?.tags?.tags?.map((tag, index) => (
-                                            <Fragment key={tag}>
-                                                <li>{tag}</li>
-                                                {index <
-                                                (post.tags?.tags?.length
-                                                    ? post.tags?.tags?.length -
-                                                      1
-                                                    : 0) ? (
-                                                    <span />
-                                                ) : null}
-                                            </Fragment>
-                                        ))}
-                                    </ul>
-                                    <h2>{post?.title}</h2>
-                                    {post?.description &&
-                                        renderRichText(
-                                            post?.description as any,
-                                            {}
-                                        )}
-                                    <span>{'Read more'}</span>
-                                </div>
+                                <a href={post?.slug || ''}></a>
+                                <p>{post?.title}</p>
                             </motion.article>
-                            {index <
-                            (filteredPosts.slice(0, count || 3) || []).length -
-                                1 ? (
-                                <div className="divider" />
-                            ) : null}
                         </Fragment>
-                    );
-                })}
+                    ))}
+                </div>
                 {(filteredPosts?.length || 0) > count && (
-                    <button onClick={() => setCount(count + (workCount || 3))}>
+                    <button
+                        onClick={() => setCount(count + (galleryCount || 3))}
+                    >
                         {'Show more'}
                     </button>
                 )}
@@ -186,4 +176,4 @@ const ContentWork: FC = () => {
     );
 };
 
-export default ContentWork;
+export default ContentGallery;

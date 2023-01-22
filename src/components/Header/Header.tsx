@@ -30,10 +30,10 @@ const Header: FC<Props> = ({ isHomePage = true }) => {
                         title
                     }
                 }
-                workSection
-                workAnchor
-                experimentsSection
-                experimentsAnchor
+                featuredSection
+                featuredAnchor
+                gallerySection
+                galleryAnchor
                 skillsSection
                 skillsAnchor
                 contactSection
@@ -49,15 +49,15 @@ const Header: FC<Props> = ({ isHomePage = true }) => {
     const {
         contactAnchor,
         contactSection,
-        experimentsAnchor,
-        experimentsSection,
+        featuredAnchor,
+        featuredSection,
+        galleryAnchor,
+        gallerySection,
         landingAnchor,
         landingSection,
         links,
         skillsAnchor,
         skillsSection,
-        workAnchor,
-        workSection,
     } = data.contentfulHomePage;
 
     const headerRef = useRef<HTMLHeadingElement>(null);
@@ -71,8 +71,8 @@ const Header: FC<Props> = ({ isHomePage = true }) => {
     const dragControls = useDragControls();
 
     const anchors = [
-        { anchor: workAnchor || '', linkName: workSection },
-        { anchor: experimentsAnchor || '', linkName: experimentsSection },
+        { anchor: featuredAnchor || '', linkName: featuredSection },
+        { anchor: galleryAnchor || '', linkName: gallerySection },
         { anchor: skillsAnchor || '', linkName: skillsSection },
         { anchor: contactAnchor || '', linkName: contactSection },
     ];

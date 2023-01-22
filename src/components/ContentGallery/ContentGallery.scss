@@ -1,7 +1,7 @@
 @use "sass:math";
 @import "../../styles/variables.scss";
 
-section.experiments {
+section.gallery {
     .filters {
         display: flex;
         align-items: center;
@@ -74,6 +74,13 @@ section.experiments {
         user-select: none;
         width: 100%;
         cursor: pointer;
+        > a {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
         .image {
             position: relative;
             transition: all 0.15s ease;
