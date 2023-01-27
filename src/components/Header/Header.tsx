@@ -70,6 +70,13 @@ const Header: FC<Props> = ({ isHomePage = true }) => {
     const [scrollPos, setScrollPos] = useState(0);
     const dragControls = useDragControls();
 
+    const scrolling = useRef(false);
+    const timer = useRef(
+        setTimeout(() => {
+            /** */
+        }, 0)
+    );
+
     const anchors = [
         { anchor: featuredAnchor || '', linkName: featuredSection },
         { anchor: galleryAnchor || '', linkName: gallerySection },
@@ -198,13 +205,21 @@ const Header: FC<Props> = ({ isHomePage = true }) => {
     };
 
     const scrollIntoView = (section: Element, anchor: string) => {
+        scrolling.current = true;
         section?.scrollIntoView({
             behavior: 'smooth',
         });
+        clearTimeout(timer.current);
+        timer.current = setTimeout(() => {
+            scrolling.current = false;
+        }, 1000);
         setSection(anchor);
     };
 
     const setSection = (anchor: string) => {
+        if (!scrolling.current) {
+            window.location.hash = anchor;
+        }
         setfocusedAnchor(anchor);
     };
 
