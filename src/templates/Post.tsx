@@ -41,18 +41,22 @@ const PostPage = ({ data }: PageProps<Queries.PostPageQuery>) => {
         <main>
             <Header isHomePage={false} />
             <section className="content">
-                <aside>
-                    <ul>
-                        <li>
-                            <a href={`#top`}>{'Top of page'}</a>
-                        </li>
-                        {anchors.map((anchor) => (
-                            <li key={anchor.title}>
-                                <a href={`#${anchor.anchor}`}>{anchor.title}</a>
+                {anchors.length > 0 && (
+                    <aside>
+                        <ul>
+                            <li>
+                                <a href={`#top`}>{'Top of page'}</a>
                             </li>
-                        ))}
-                    </ul>
-                </aside>
+                            {anchors.map((anchor) => (
+                                <li key={anchor.title}>
+                                    <a href={`#${anchor.anchor}`}>
+                                        {anchor.title}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </aside>
+                )}
                 <a className="post-anchor top" />
                 <ul className="tags">
                     {tags?.tags?.map((tag, index) => (
