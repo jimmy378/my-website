@@ -5,7 +5,7 @@ import './Post.scss';
 import 'react-medium-image-zoom/dist/styles.css';
 
 import { graphql, HeadFC, PageProps } from 'gatsby';
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 
 import Header from '../components/Header/Header';
 import RichText from '../components/RichText/RichText';
@@ -18,11 +18,42 @@ const PostPage = ({ data }: PageProps<Queries.PostPageQuery>) => {
         return <></>;
     }
     const { content, tags, title } = data.contentfulPost;
+    const [anchors, setAnchors] = useState<{ anchor: string; title: string }[]>(
+        []
+    );
+
+    useEffect(() => {
+        const blocks = content?.references || [];
+        const newAnchors: { anchor: string; title: string }[] = [];
+        blocks.forEach((block) => {
+            if (block?.__typename === 'ContentfulComponentAnchor') {
+                const { anchor, title } = block;
+                newAnchors.push({
+                    anchor: anchor || '',
+                    title: title || '',
+                });
+            }
+        });
+        setAnchors(newAnchors);
+    }, []);
 
     return (
         <main>
             <Header isHomePage={false} />
             <section className="content">
+                <aside>
+                    <ul>
+                        <li>
+                            <a href={`#top`}>{'Top of page'}</a>
+                        </li>
+                        {anchors.map((anchor) => (
+                            <li key={anchor.title}>
+                                <a href={`#${anchor.anchor}`}>{anchor.title}</a>
+                            </li>
+                        ))}
+                    </ul>
+                </aside>
+                <a className="post-anchor top" />
                 <ul className="tags">
                     {tags?.tags?.map((tag, index) => (
                         <Fragment key={tag}>
@@ -66,6 +97,12 @@ export const query = graphql`
             content {
                 raw
                 references {
+                    ... on ContentfulComponentAnchor {
+                        contentful_id
+                        __typename
+                        title
+                        anchor
+                    }
                     ... on ContentfulComponentVideo {
                         contentful_id
                         __typename

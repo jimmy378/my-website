@@ -81,6 +81,27 @@ section.content {
         }
     }
 
+    aside {
+        position: fixed;
+        display: flex;
+        gap: math.div($unit-base, 2);
+        flex-direction: column;
+        margin-right: $unit-base;
+        transform: translateX($unit-base * -12);
+        width: $unit-base * 8;
+        ul {
+            list-style: circle;
+            padding: 0;
+            &::before {
+                display: none;
+            }
+        }
+        a {
+            font-size: $type-disclaimer;
+            line-height: $type-disclaimer-lh;
+        }
+    }
+
     @include breakpoint-mobile {
         min-height: 0;
         padding-top: $unit-base * 2;
@@ -91,6 +112,9 @@ section.content {
         > h1 {
             font-size: 30px;
             line-height: 36px;
+        }
+        aside {
+            display: none;
         }
     }
 }

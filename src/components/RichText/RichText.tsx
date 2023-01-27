@@ -21,8 +21,11 @@ const richTextOptions = {
             );
         },
         [BLOCKS.EMBEDDED_ENTRY]: (node: any) => {
-            const { __typename, images, link, videoLink } = node.data.target;
+            const { __typename, anchor, images, link, videoLink } =
+                node.data.target;
             switch (__typename) {
+                case 'ContentfulComponentAnchor':
+                    return <a className={`post-anchor ${anchor}`.trim()} />;
                 case 'ContentfulComponentVideo':
                     return <PostVideo link={videoLink} />;
                 case 'ContentfulComponentIframe':

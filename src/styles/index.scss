@@ -140,3 +140,8 @@ input[type="submit"] {
         background: rgba($color-base, 0.1);
     }
 }
+
+.post-anchor {
+    position: absolute;
+    transform: translateY($unit-base * -8);
+}

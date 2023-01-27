@@ -217,7 +217,7 @@ const Header: FC<Props> = ({ isHomePage = true }) => {
     };
 
     const setSection = (anchor: string) => {
-        if (!scrolling.current) {
+        if (!scrolling.current && isHomePage) {
             window.location.hash = anchor;
         }
         setfocusedAnchor(anchor);
