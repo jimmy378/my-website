@@ -5,8 +5,9 @@ export default function HTML(props) {
     return (
         <html {...props.htmlAttributes}>
             <head>
-                <script>
-                    {`(function (m, a, z, e) {
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `(function (m, a, z, e) {
                             var s, t;
                             try {
                                 t = m.sessionStorage.getItem('maze-us');
@@ -32,8 +33,9 @@ export default function HTML(props) {
                             document,
                             'https://snippet.maze.co/maze-universal-loader.js',
                             '776fce4f-c81f-4fa1-8105-b910ef81cdad'
-                        )`}
-                </script>
+                        )`,
+                    }}
+                />
                 <meta charSet="utf-8" />
                 <meta content="ie=edge" httpEquiv="x-ua-compatible" />
                 <meta
