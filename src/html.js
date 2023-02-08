@@ -7,33 +7,35 @@ export default function HTML(props) {
             <head>
                 <script
                     dangerouslySetInnerHTML={{
-                        __html: `(function (m, a, z, e) {
-                            var s, t;
-                            try {
-                                t = m.sessionStorage.getItem('maze-us');
-                            } catch (err) {
-                                /** Empty */
-                            }
-                            if (!t) {
-                                t = new Date().getTime();
-                                try {
-                                    m.sessionStorage.setItem('maze-us', t);
-                                } catch (err) {
-                                    /** Empty */
-                                }
-                            }
+                        __html: `
+(function (m, a, z, e) {
+    var s, t;
+    try {
+        t = m.sessionStorage.getItem('maze-us');
+    } catch (err) {
+        /** Empty */
+    }
+    if (!t) {
+        t = new Date().getTime();
+        try {
+            m.sessionStorage.setItem('maze-us', t);
+        } catch (err) {
+            /** Empty */
+        }
+    }
 
-                            s = a.createElement('script');
-                            s.src = z + '?t=' + t + '&apiKey=' + e;
-                            s.async = true;
-                            a.getElementsByTagName('head')[0].appendChild(s);
-                            m.mazeUniversalSnippetApiKey = e;
-                        })(
-                            window,
-                            document,
-                            'https://snippet.maze.co/maze-universal-loader.js',
-                            '776fce4f-c81f-4fa1-8105-b910ef81cdad'
-                        )`,
+    s = a.createElement('script');
+    s.src = z + '?t=' + t + '&apiKey=' + e;
+    s.async = true;
+    a.getElementsByTagName('head')[0].appendChild(s);
+    m.mazeUniversalSnippetApiKey = e;
+})(
+    window,
+    document,
+    'https://snippet.maze.co/maze-universal-loader.js',
+    '776fce4f-c81f-4fa1-8105-b910ef81cdad'
+)
+                        `,
                     }}
                 />
                 <meta charSet="utf-8" />
