@@ -17,6 +17,10 @@ const IndexPage = () => {
         return <></>;
     }
 
+    React.useEffect(() => {
+        localStorage.setItem('version', 'a');
+    }, []);
+
     return (
         <main>
             <Header />
