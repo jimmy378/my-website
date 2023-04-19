@@ -78,6 +78,15 @@ const config: GatsbyConfig = {
             },
             resolve: `gatsby-plugin-google-gtag`,
         },
+        {
+            options: {
+                defaultDataLayer: { platform: 'gatsby' },
+                enableWebVitalsTracking: true,
+                id: 'GTM-PMCM6VX',
+                includeInDevelopment: false,
+            },
+            resolve: 'gatsby-plugin-google-tagmanager',
+        },
     ],
     siteMetadata: {
         description: `I'm a motion graphics artist, web designer and illustrator based in Sydney, Australia.`,
